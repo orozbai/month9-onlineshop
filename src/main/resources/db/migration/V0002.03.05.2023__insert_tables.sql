@@ -1,4 +1,4 @@
-insert into brand(brand_name)
+insert into brands(brand)
 values ('Asus'),
        ('Samsung'),
        ('Apple'),
@@ -8,7 +8,7 @@ values ('Asus'),
        ('Dell'),
        ('Hp');
 
-insert into category(category_name)
+insert into categories(category)
 values ('CPU'),
        ('Motherboard'),
        ('Processor cooling system'),
@@ -18,7 +18,7 @@ values ('CPU'),
        ('Frame'),
        ('Power unit');
 
-insert into product(name, description, price, count, brand_fk, category_fk, image_link)
+insert into products(name, description, price, count, brand_id, category_id, image_link)
 values ('Intel Core i9-13900k', 'best cpu overall', 12400, 67, 5, 1, 'intel_core_i9_cpu.jpg'),
        ('Asus Prime Z490-A',
         'Asus Prime series motherboards are a reinforced power system, in the ability to organize full fledged of components',
