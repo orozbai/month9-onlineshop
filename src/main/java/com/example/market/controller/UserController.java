@@ -1,7 +1,6 @@
 package com.example.market.controller;
 
 import com.example.market.dto.UserDto;
-import com.example.market.entity.User;
 import com.example.market.mapper.UserMapper;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
@@ -43,5 +42,16 @@ public class UserController {
                     .collect(Collectors.toList());
         }
         return list;
+    }
+
+    @GetMapping("check/")
+    public Boolean checkUserInSystem(@RequestParam(required = false) String email) {
+        List<UserDto> list = new ArrayList<>();
+        if (email != null) {
+            list = userService.findByEmail(email).stream()
+                    .map(user -> userMapper.fromUser(user))
+                    .collect(Collectors.toList());
+        }
+        return list.size() != 0;
     }
 }
