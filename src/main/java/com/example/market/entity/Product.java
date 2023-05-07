@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -36,4 +37,12 @@ public class Product {
 
     @Column(name = "image_link")
     private String image;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OrderBy("delivery ASC")
+    private List<Order> orders;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OrderBy("descriptionTime ASC")
+    private List<Reviews> reviews;
 }

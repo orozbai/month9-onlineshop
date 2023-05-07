@@ -20,7 +20,7 @@ public class CategoryController {
     final private CategoryMapper categoryMapper;
 
     @GetMapping("category/")
-    //http://localhost:8089/category/?ids=1,2,3,4,5 добавить на страницу скрытым значением
+    //http://localhost:8089/category/?ids=1,2,3,4,5 показывает 5 категорий по айди добавить на страницу скрытым значением
     public List<CategoryDto> getAllCategory(@RequestParam("ids") List<Long> ids) {
         return categoryService.getAllCategory(ids).stream()
                 .map(category -> categoryMapper.fromCategory(category))
