@@ -1,30 +1,35 @@
 package com.example.market.controller;
 
 import com.example.market.dto.ProductDto;
+import com.example.market.dto.ReviewDto;
 import com.example.market.entity.Category;
 import com.example.market.entity.Product;
 import com.example.market.mapper.ProductMapper;
+import com.example.market.mapper.ReviewMapper;
 import com.example.market.service.CategoryService;
+import com.example.market.service.ReviewService;
 import com.example.market.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/product/")
 public class ProductController {
     final private ProductService productService;
     final private CategoryService categoryService;
+
+    final private ReviewService reviewService;
     final private ProductMapper productMapper;
+    final private ReviewMapper reviewMapper;
 
     @GetMapping("products/all/")
     public List<ProductDto> getAllProducts() {
@@ -66,6 +71,15 @@ public class ProductController {
         List<Category> categories = categoryService.getAllCategory();
         model.addAttribute("categories", categories);
         //сделать страничку с формой поиска и таблицей для отображения товаров
+        //изменить контроллер чтобы раобтал freemarker
         return "products";
+    }
+
+    @GetMapping("comment/")
+    public List<ReviewDto> getCommentsByIdProduct(@RequestParam(name = "productId", required = false) Integer id) {
+        return reviewService.getReviewsById(id)
+                .stream()
+                .map(reviews -> reviewMapper.fromReview(reviews))
+                .collect(Collectors.toList());
     }
 }

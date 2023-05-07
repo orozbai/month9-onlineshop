@@ -24,4 +24,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @OrderBy("delivery ASC")
     private List<Order> orders;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OrderBy("descriptionTime ASC")
+    private List<Reviews> reviews;
 }
