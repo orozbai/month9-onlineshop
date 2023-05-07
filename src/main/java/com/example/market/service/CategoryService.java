@@ -12,7 +12,7 @@ import java.util.List;
 public class CategoryService {
     final private CategoryRepository categoryRepository;
 
-    public List<Category> getAllCategory(List<Long> ids) {
-        return categoryRepository.findFirst5ByIdIn(ids);
+    public List<Category> getAllCategory() {
+        return categoryRepository.findAllBy();
     }
 }
