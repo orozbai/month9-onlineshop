@@ -4,6 +4,8 @@ import com.example.market.dto.OrderDto;
 import com.example.market.entity.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class OrderMapper {
     public static OrderDto fromOrder(Order order) {
@@ -12,7 +14,7 @@ public class OrderMapper {
                 .delivery(order.getDelivery())
                 .userEmail(order.getUser().getEmail())
                 .price(order.getPrice())
-                .productName(order.getProduct().getName())
+                .productName(List.of(order.getProduct().getName()))
                 .productPrice(order.getProduct().getPrice())
                 .build();
     }

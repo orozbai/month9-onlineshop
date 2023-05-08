@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -12,6 +13,6 @@ public class OrderDto {
     private Integer price;
     private LocalDateTime orderTime;
     private String userEmail;
-    private String productName;
+    private List<String> productName;
     private Integer productPrice;
 }
