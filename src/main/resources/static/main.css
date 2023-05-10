@@ -1,0 +1,117 @@
+.container {
+    margin: 0 auto;
+    max-width: 1480px;
+}
+
+#main {
+    border: green 1px solid;
+    background-color: #f1f1f1;
+    display: flex;
+}
+
+#left-column {
+    border: red 1px solid;
+    width: 15%;
+    min-height: 100%;
+    padding: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#list-form {
+    border: purple 1px solid;
+}
+
+#content {
+    border: black 1px solid;
+    width: 70%;
+    min-height: 100%;
+    padding: 62px;
+}
+
+#right-column {
+    border: blue 1px solid;
+    width: 15%;
+    min-height: 100%;
+    padding: 20px;
+}
+
+.btn-dropdown {
+    background-color: #ff5810;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+#dropdown1, #dropdown2, #dropdown3, #dropdown4, #dropdown5, #dropdown6, #dropdown7, #dropdown8 {
+    position: relative;
+    display: inline-block;
+    padding: 3%;
+    width: 97%;
+}
+
+#list1, #list2, #list3, #list4, #list5, #list6, #list7, #list8 {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+#list1 a, #list2 a, #list3 a, #list4 a, #list5 a, #list6 a, #list7 a, #list8 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#list1 a:hover, #list2 a:hover, #list3 a:hover, #list4 a:hover,
+#list5 a:hover, #list6 a:hover, #list7 a:hover, #list8 a:hover {
+    background-color: #ddd;
+}
+
+#dropdown1:hover #list1, #dropdown2:hover #list2, #dropdown3:hover #list3, #dropdown4:hover #list4,
+#dropdown5:hover #list5, #dropdown6:hover #list6, #dropdown7:hover #list7, #dropdown8:hover #list8 {
+    display: block;
+}
+
+#dropdown1 .btn-dropdown, #dropdown2 .btn-dropdown, #dropdown3 .btn-dropdown, #dropdown4 .btn-dropdown,
+#dropdown5 .btn-dropdown, #dropdown6 .btn-dropdown, #dropdown7 .btn-dropdown, #dropdown8 .btn-dropdown {
+    background-color: #3e8e41;
+    border: black 1px solid;
+    width: 97%;
+}
+
+.card-col {
+    display: flex;
+    flex-wrap: wrap;
+    border: black 1px solid;
+    max-width: 1024px;
+}
+
+.cards {
+    border: green 1px solid;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+}
+
+.cards p {
+    margin: 3px;
+    position: absolute;
+    bottom: 0;
+}
+
+.card-image {
+    border: black 1px solid;
+    width: 99%;
+    height: 80%;
+    object-fit: cover;
+}

@@ -3,13 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
 </head>
 <body>
-<div id="main">
-    <div id="left-column">
+<div class="container">
+    <div id="main">
+        <div id="left-column">
+            <form id="list-form">
+                <label for="list1"></label>
+                <div id="dropdown1">
+                    <button id="drop-btn1" class="btn-dropdown">Процессоры</button>
+                    <div id="list1">
+                        <a href="#">Intel</a>
+                        <a href="#">AMD</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list2"></label>
+                <div id="dropdown2">
+                    <button id="drop-btn2" class="btn-dropdown">Материнские платы</button>
+                    <div id="list2">
+                        <a href="#">Gigabyte</a>
+                        <a href="#">Asus</a>
+                        <a href="#">Intel</a>
+                        <a href="#">MSI</a>
+                        <a href="#">ASRock</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list3"></label>
+                <div id="dropdown3">
+                    <button id="drop-btn3" class="btn-dropdown">Системы охлождения</button>
+                    <div id="list3">
+                        <a href="#">DEEPCOOL</a>
+                        <a href="#">Asus</a>
+                        <a href="#">Arctic</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list4"></label>
+                <div id="dropdown4">
+                    <button id="drop-btn4" class="btn-dropdown">Оперативная память</button>
+                    <div id="list4">
+                        <a href="#">Kingston</a>
+                        <a href="#">Gigabyte</a>
+                        <a href="#">AMD</a>
+                        <a href="#">HyperX</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list5"></label>
+                <div id="dropdown5">
+                    <button id="drop-btn5" class="btn-dropdown">Видеокарты</button>
+                    <div id="list5">
+                        <a href="#">Asus</a>
+                        <a href="#">Gigabyte</a>
+                        <a href="#">MSI</a>
+                        <a href="#">HP</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list6"></label>
+                <div id="dropdown6">
+                    <button id="drop-btn6" class="btn-dropdown">Жесткие диски</button>
+                    <div id="list6">
+                        <a href="#">Toshiba</a>
+                        <a href="#">WD</a>
+                        <a href="#">Seagate</a>
+                        <a href="#">Samsung</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list7"></label>
+                <div id="dropdown7">
+                    <button id="drop-btn7" class="btn-dropdown">Блоки питания</button>
+                    <div id="list7">
+                        <a href="#">Vinga</a>
+                        <a href="#">AeroCool</a>
+                        <a href="#">Deepcool</a>
+                        <a href="#">Zalman</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list8"></label>
+                <div id="dropdown8">
+                    <button id="drop-btn8" class="btn-dropdown">Корпус</button>
+                    <div id="list8">
+                        <a href="#">Zalman</a>
+                        <a href="#">Corsair</a>
+                        <a href="#">Cooler Master</a>
+                        <a href="#">Chieftec</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="content">
+            <div class="card-col">
+                <div class="cards">
+                    <img src="../static/images/video-card.jpg" alt="image" class="card-image">
+                    <p class="card-name">Видеокарты</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/cpu.jpg" alt="image" class="card-image">
+                    <p class="card-name">Процессоры</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/cpu-cooler.jpg" alt="image" class="card-image">
+                    <p class="card-name">Системы охлаждения</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/motherboard.jpg" alt="image" class="card-image">
+                    <p class="card-name">Материнская плата</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/hdd.jpg" alt="image" class="card-image">
+                    <p class="card-name">Жесткие диски</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/frame.jpg" alt="image" class="card-image">
+                    <p class="card-name">Корпус</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/ram.jpg" alt="image" class="card-image">
+                    <p class="card-name">Оперативная память</p>
+                </div>
+                <div class="cards">
+                    <img src="../static/images/power-unit.jpg" alt="image" class="card-image">
+                    <p class="card-name">Блоки питания</p>
+                </div>
+            </div>
+        </div>
+        <div id="right-column">
+            <!--            добавить форму поиска и тд-->
+        </div>
     </div>
-    <div id="content"></div>
-    <div id="right-column"></div>
 </div>
 <script src="/static/script.js"></script>
 </body>
