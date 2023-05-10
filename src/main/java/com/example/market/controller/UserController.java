@@ -8,6 +8,8 @@ import com.example.market.mapper.UserMapper;
 import com.example.market.service.OrderService;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
+@ControllerAdvice
 @RequestMapping("/user/")
 public class UserController {
     final private UserService userService;
@@ -65,6 +68,7 @@ public class UserController {
         }
         return list.size() != 0;
     }
+
     //ордера или корзина пользователя по айди
     @GetMapping("order/")
     public List<OrderDto> getOrdersByIdUser(@RequestParam(name = "userId", required = false) Integer id) {
