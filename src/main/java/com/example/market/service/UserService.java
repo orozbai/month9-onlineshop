@@ -1,5 +1,6 @@
 package com.example.market.service;
 
+import com.example.market.dto.UserRegistrationDto;
 import com.example.market.entity.User;
 import com.example.market.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,15 @@ public class UserService {
 
     public List<User> findByUsername(String username) {
         return userRepository.findAllUserByUsername(username);
+    }
+
+    public void registerUser(UserRegistrationDto registrationDto) {
+        User user = User.builder()
+                .name(registrationDto.getName())
+                .email(registrationDto.getEmail())
+                .username(registrationDto.getUsername())
+                .password(registrationDto.getPassword())
+                .build();
+        userRepository.save(user);
     }
 }

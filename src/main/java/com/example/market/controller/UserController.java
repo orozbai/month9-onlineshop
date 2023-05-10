@@ -2,16 +2,17 @@ package com.example.market.controller;
 
 import com.example.market.dto.OrderDto;
 import com.example.market.dto.UserDto;
+import com.example.market.dto.UserRegistrationDto;
 import com.example.market.mapper.OrderMapper;
 import com.example.market.mapper.UserMapper;
 import com.example.market.service.OrderService;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,4 +73,15 @@ public class UserController {
                 .map(order -> orderMapper.fromOrder(order))
                 .collect(Collectors.toList());
     }
+
+    @PostMapping("register/")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDto registrationDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }
+        userService.registerUser(registrationDto);
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+
 }

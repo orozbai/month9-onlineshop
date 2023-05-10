@@ -5,11 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<div id="main">
-    <div id="left-column">
-    </div>
-    <div id="content"></div>
-    <div id="right-column"></div>
+<div>
+
 </div>
 <script src="/static/script.js"></script>
 </body>
