@@ -134,7 +134,28 @@
             </div>
         </div>
         <div id="right-column">
-            <!--            добавить форму поиска и тд-->
+            <div class="search-right-col">
+                <form id="search-form">
+                    <label>
+                        <input name="s" placeholder="Поиск" type="search" id="search-input">
+                    </label>
+                    <button type="submit" id="search-button">Поиск</button>
+                </form>
+            </div>
+            <div class="orders">
+                <h3 id="orders-title">Ваша корзина</h3>
+                <div id="orders-list">
+                    <ol id="orders-ol">
+                        <li>Rx3000000000000000000000</li>
+                        <li>Fn5000</li>
+                        <li>ls200</li>
+                    </ol>
+                </div>
+                <a href="#">
+                    <button type="button" id="orders-button">Перейти в корзину</button>
+                </a>
+                <button type="button" id="orders-button-clear">Очистить корзину</button>
+            </div>
         </div>
     </div>
 </div>
