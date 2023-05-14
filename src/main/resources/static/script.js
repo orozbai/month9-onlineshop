@@ -2,13 +2,6 @@
 
 const basicUrl = 'http://localhost:8089/';
 
-async function getProducts(e) {
-    e.preventDefault();
-    await fetch(basicUrl + 'products/').then(response => response.json().then(data => {
-        console.log(data);
-    }));
-}
-
 const shopCopy = document.getElementById('search-form');
 const page = document.getElementById('search-form-page');
 
@@ -37,13 +30,6 @@ async function searchPage(e) {
             });
             const newUrl = window.location.pathname + '?' + urlParams.toString();
             window.history.pushState({}, '', newUrl);
-            if (data.length !== 4) {
-                const div = document.querySelector('.switch-start');
-                div.style.display = 'none';
-            } else {
-                const div = document.querySelector('.switch-start');
-                div.style.display = 'flex';
-            }
             createProducts(data);
         })
         .catch(error => console.error(error));
@@ -78,8 +64,11 @@ async function nextPage(e) {
     e.preventDefault();
     const urlParam = new URLSearchParams(window.location.search);
     const name = urlParam.get('s');
-    const newPage = urlParam.get('h');
-    const page = newPage + 1;
+    let page = parseInt(urlParam.get('h')) || 0;
+    page = page + 1;
+    urlParam.set('h', page.toString());
+    const newUrl = window.location.pathname + '?' + urlParam.toString();
+    window.history.replaceState({}, '', newUrl)
     await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
         .then(response => response.json())
         .then(data => {
@@ -100,11 +89,11 @@ async function prevPage(e) {
     e.preventDefault();
     const urlParam = new URLSearchParams(window.location.search);
     const name = urlParam.get('s');
-    const newPage = urlParam.get('h');
-    let page = newPage - 1;
-    if (page < 0) {
-        page = 0;
-    }
+    let page = parseInt(urlParam.get('h')) || 0;
+    page = Math.max(0, page - 1);
+    urlParam.set('h', page.toString());
+    const newUrl = window.location.pathname + '?' + urlParam.toString();
+    window.history.replaceState({}, '', newUrl)
     await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
         .then(response => response.json())
         .then(data => {
@@ -120,22 +109,24 @@ if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
     const productAsJson = localStorage.getItem('data-script');
     const url = localStorage.getItem('data-url');
     const newUrl = window.location.pathname + '?' + url.toString();
-    window.history.pushState({}, '', newUrl);
+    if (newUrl) {
+        window.history.pushState({}, '', newUrl);
+    }
     localStorage.removeItem('data-url');
     const data = JSON.parse(productAsJson);
-    if (data.length !== 4) {
-        const div = document.querySelector('.switch-start');
-        div.style.display = 'none';
-    } else {
-        const div = document.querySelector('.switch-start');
-        div.style.display = 'flex';
-    }
     if (data) {
         createProducts(data)
     }
 }
 
 function createProducts(data) {
+    if (data.length !== 4) {
+        const div = document.querySelector('.next');
+        div.style.display = 'none';
+    } else {
+        const div = document.querySelector('.next');
+        div.style.display = 'flex';
+    }
     for (const p of data) {
         const form = new FormData();
         form.append('name', p.name);

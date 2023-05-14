@@ -64,7 +64,7 @@ public class WebController {
         return "page";
     }
 
-    @GetMapping("shop")
+    @GetMapping()
     public String mainPage() {
         return "shopcopy";
     }

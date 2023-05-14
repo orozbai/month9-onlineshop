@@ -98,9 +98,9 @@
             </form>
         </div>
         <div id="content">
-            <div class="switch-start" style="display: flex">
-                <button class="prev" type="button">Предыдущая страница</button>
-                <button class="next" type="button">Следующая страница</button>
+            <div class="switch-start">
+                <button class="prev" type="button" style="display: flex">Предыдущая страница</button>
+                <button class="next" type="button" style="display: flex">Следующая страница</button>
             </div>
             <div id="content-products">
 
