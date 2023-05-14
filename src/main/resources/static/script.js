@@ -1,18 +1,196 @@
 'use strict'
 
+const basicUrl = 'http://localhost:8089/';
+
 async function getProducts(e) {
     e.preventDefault();
-    await fetch('http://localhost:8089/products/').then(response => response.json().then(data => {
+    await fetch(basicUrl + 'products/').then(response => response.json().then(data => {
         console.log(data);
     }));
 }
 
-document.getElementById('search-form').addEventListener('submit', function (e) {
+const shopCopy = document.getElementById('search-form');
+const page = document.getElementById('search-form-page');
+
+if (shopCopy) {
+    shopCopy.addEventListener("submit", search);
+}
+if (page) {
+    page.addEventListener('submit', searchPage);
+}
+
+async function searchPage(e) {
+    e.preventDefault()
+    let formData = new FormData(e.target);
+    let name = formData.get('s');
+    let page = formData.get('h');
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const element = document.getElementById('content-products');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            const urlParams = new URLSearchParams({
+                s: formData.get('s'),
+                h: formData.get('h')
+            });
+            const newUrl = window.location.pathname + '?' + urlParams.toString();
+            window.history.pushState({}, '', newUrl);
+            if (data.length !== 4) {
+                const div = document.querySelector('.switch-start');
+                div.style.display = 'none';
+            } else {
+                const div = document.querySelector('.switch-start');
+                div.style.display = 'flex';
+            }
+            createProducts(data);
+        })
+        .catch(error => console.error(error));
+}
+
+async function search(e) {
     e.preventDefault();
     let formData = new FormData(e.target);
-    const value = formData.get('s');
-    console.log(value);
-});
+    let name = formData.get('s');
+    let page = formData.get('h');
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const productAsJson = JSON.stringify(data);
+            localStorage.setItem('data-script', productAsJson);
+            const urlParams = new URLSearchParams({
+                s: formData.get('s'),
+                h: formData.get('h')
+            });
+            localStorage.setItem('data-url', urlParams.toString());
+            window.location.href = basicUrl + 'products';
+        })
+        .catch(error => console.error(error));
+}
+
+const next = document.querySelector('.next');
+if (next) {
+    next.addEventListener('click', nextPage);
+}
+
+async function nextPage(e) {
+    e.preventDefault();
+    const urlParam = new URLSearchParams(window.location.search);
+    const name = urlParam.get('s');
+    const newPage = urlParam.get('h');
+    const page = newPage + 1;
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const element = document.getElementById('content-products');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            createProducts(data);
+        })
+}
+
+const prev = document.querySelector('.prev');
+if (prev) {
+    prev.addEventListener('click', prevPage);
+}
+
+async function prevPage(e) {
+    e.preventDefault();
+    const urlParam = new URLSearchParams(window.location.search);
+    const name = urlParam.get('s');
+    const newPage = urlParam.get('h');
+    let page = newPage - 1;
+    if (page < 0) {
+        page = 0;
+    }
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const element = document.getElementById('content-products');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            createProducts(data);
+        })
+}
+
+if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
+    const productAsJson = localStorage.getItem('data-script');
+    const url = localStorage.getItem('data-url');
+    const newUrl = window.location.pathname + '?' + url.toString();
+    window.history.pushState({}, '', newUrl);
+    localStorage.removeItem('data-url');
+    const data = JSON.parse(productAsJson);
+    if (data.length !== 4) {
+        const div = document.querySelector('.switch-start');
+        div.style.display = 'none';
+    } else {
+        const div = document.querySelector('.switch-start');
+        div.style.display = 'flex';
+    }
+    if (data) {
+        createProducts(data)
+    }
+}
+
+function createProducts(data) {
+    for (const p of data) {
+        const form = new FormData();
+        form.append('name', p.name);
+        form.append('description', p.description);
+        form.append('count', p.count);
+        form.append('price', p.price);
+        form.append('brand', p.brand);
+        form.append('category', p.category);
+        form.append('image', p.image);
+        insertProductsElem(form);
+    }
+}
+
+function insertProductsElem(form) {
+    const divElem = document.createElement('div');
+    divElem.classList.add('products');
+
+    const image = document.createElement('img');
+    image.classList.add('products-images')
+    image.src = '../images/' + form.get('image');
+    image.alt = form.get('image');
+    divElem.appendChild(image);
+
+    const div = document.createElement('div');
+    div.classList.add('products-div');
+    const name = document.createElement('h3');
+    name.textContent = "name: " + form.get('name');
+    div.appendChild(name);
+
+    const description = document.createElement('p');
+    description.textContent = "description: " + form.get('description')
+    div.appendChild(description);
+
+    const count = document.createElement('p');
+    count.textContent = "count: " + form.get('count');
+    div.appendChild(count);
+
+    const price = document.createElement('p')
+    price.textContent = "price: " + form.get('price');
+    div.appendChild(price);
+
+    const brand = document.createElement('p')
+    brand.textContent = "brand: " + form.get('brand');
+    div.appendChild(brand);
+
+    const category = document.createElement('p')
+    category.textContent = "category: " + form.get('category');
+    div.appendChild(category);
+
+    const element = document.getElementById('content-products');
+
+    element.appendChild(divElem);
+    element.appendChild(div);
+    localStorage.removeItem('data-script')
+}
 
 document.getElementById('orders-button-clear').addEventListener('click', function (e) {
     e.preventDefault();

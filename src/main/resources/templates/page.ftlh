@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
 </head>
 <body>
 <div class="container">
@@ -98,46 +98,20 @@
             </form>
         </div>
         <div id="content">
-            <div class="card-col">
-                <div class="cards">
-                    <img src="../static/images/video-card.jpg" alt="image" class="card-image">
-                    <p class="card-name">Видеокарты</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/cpu.jpg" alt="image" class="card-image">
-                    <p class="card-name">Процессоры</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/cpu-cooler.jpg" alt="image" class="card-image">
-                    <p class="card-name">Системы охлаждения</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/motherboard.jpg" alt="image" class="card-image">
-                    <p class="card-name">Материнская плата</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/hdd.jpg" alt="image" class="card-image">
-                    <p class="card-name">Жесткие диски</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/frame.jpg" alt="image" class="card-image">
-                    <p class="card-name">Корпус</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/ram.jpg" alt="image" class="card-image">
-                    <p class="card-name">Оперативная память</p>
-                </div>
-                <div class="cards">
-                    <img src="../static/images/power-unit.jpg" alt="image" class="card-image">
-                    <p class="card-name">Блоки питания</p>
-                </div>
+            <div class="switch-start" style="display: flex">
+                <button class="prev" type="button">Предыдущая страница</button>
+                <button class="next" type="button">Следующая страница</button>
+            </div>
+            <div id="content-products">
+
             </div>
         </div>
         <div id="right-column">
             <div class="search-right-col">
-                <form id="search-form">
+                <form id="search-form-page">
                     <label>
                         <input name="s" placeholder="Поиск" type="search" id="search-input">
+                        <input name="h" value="0" hidden id="search-input-hidden">
                     </label>
                     <button type="submit" id="search-button">Поиск</button>
                 </form>
@@ -146,9 +120,7 @@
                 <h3 id="orders-title">Ваша корзина</h3>
                 <div id="orders-list">
                     <ol id="orders-ol">
-                        <li>Rx3000000000000000000000</li>
-                        <li>Fn5000</li>
-                        <li>ls200</li>
+                        <li id="clear-li-text">Корзина пуста</li>
                     </ol>
                 </div>
                 <a href="#">
@@ -159,6 +131,6 @@
         </div>
     </div>
 </div>
-<script src="/static/script.js"></script>
+<script src="../script.js"></script>
 </body>
 </html>

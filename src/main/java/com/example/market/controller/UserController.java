@@ -8,8 +8,6 @@ import com.example.market.mapper.UserMapper;
 import com.example.market.service.OrderService;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

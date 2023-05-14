@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../main.css">
+</head>
+<body>
+<div class="container">
+    <div id="main">
+        <div id="left-column">
+            <form id="list-form">
+                <label for="list1"></label>
+                <div id="dropdown1">
+                    <button id="drop-btn1" class="btn-dropdown">Процессоры</button>
+                    <div id="list1">
+                        <a href="#">Intel</a>
+                        <a href="#">AMD</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list2"></label>
+                <div id="dropdown2">
+                    <button id="drop-btn2" class="btn-dropdown">Материнские платы</button>
+                    <div id="list2">
+                        <a href="#">Gigabyte</a>
+                        <a href="#">Asus</a>
+                        <a href="#">Intel</a>
+                        <a href="#">MSI</a>
+                        <a href="#">ASRock</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list3"></label>
+                <div id="dropdown3">
+                    <button id="drop-btn3" class="btn-dropdown">Системы охлождения</button>
+                    <div id="list3">
+                        <a href="#">DEEPCOOL</a>
+                        <a href="#">Asus</a>
+                        <a href="#">Arctic</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list4"></label>
+                <div id="dropdown4">
+                    <button id="drop-btn4" class="btn-dropdown">Оперативная память</button>
+                    <div id="list4">
+                        <a href="#">Kingston</a>
+                        <a href="#">Gigabyte</a>
+                        <a href="#">AMD</a>
+                        <a href="#">HyperX</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list5"></label>
+                <div id="dropdown5">
+                    <button id="drop-btn5" class="btn-dropdown">Видеокарты</button>
+                    <div id="list5">
+                        <a href="#">Asus</a>
+                        <a href="#">Gigabyte</a>
+                        <a href="#">MSI</a>
+                        <a href="#">HP</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list6"></label>
+                <div id="dropdown6">
+                    <button id="drop-btn6" class="btn-dropdown">Жесткие диски</button>
+                    <div id="list6">
+                        <a href="#">Toshiba</a>
+                        <a href="#">WD</a>
+                        <a href="#">Seagate</a>
+                        <a href="#">Samsung</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list7"></label>
+                <div id="dropdown7">
+                    <button id="drop-btn7" class="btn-dropdown">Блоки питания</button>
+                    <div id="list7">
+                        <a href="#">Vinga</a>
+                        <a href="#">AeroCool</a>
+                        <a href="#">Deepcool</a>
+                        <a href="#">Zalman</a>
+                    </div>
+                </div>
+                <br>
+                <label for="list8"></label>
+                <div id="dropdown8">
+                    <button id="drop-btn8" class="btn-dropdown">Корпус</button>
+                    <div id="list8">
+                        <a href="#">Zalman</a>
+                        <a href="#">Corsair</a>
+                        <a href="#">Cooler Master</a>
+                        <a href="#">Chieftec</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="content">
+            <div class="card-col">
+                <div class="cards">
+                    <img src="../images/video-card.jpg" alt="image" class="card-image">
+                    <p class="card-name">Видеокарты</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/cpu.jpg" alt="image" class="card-image">
+                    <p class="card-name">Процессоры</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/cpu-cooler.jpg" alt="image" class="card-image">
+                    <p class="card-name">Системы охлаждения</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/motherboard.jpg" alt="image" class="card-image">
+                    <p class="card-name">Материнская плата</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/hdd.jpg" alt="image" class="card-image">
+                    <p class="card-name">Жесткие диски</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/frame.jpg" alt="image" class="card-image">
+                    <p class="card-name">Корпус</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/ram.jpg" alt="image" class="card-image">
+                    <p class="card-name">Оперативная память</p>
+                </div>
+                <div class="cards">
+                    <img src="../images/power-unit.jpg" alt="image" class="card-image">
+                    <p class="card-name">Блоки питания</p>
+                </div>
+            </div>
+        </div>
+        <div id="right-column">
+            <div class="search-right-col">
+                <form id="search-form">
+                    <label>
+                        <input name="s" placeholder="Поиск" type="search" id="search-input">
+                        <input name="h" value="0" hidden id="search-input-hidden">
+                    </label>
+                    <button type="submit" id="search-button">Поиск</button>
+                </form>
+            </div>
+            <div class="orders">
+                <h3 id="orders-title">Ваша корзина</h3>
+                <div id="orders-list">
+                    <ol id="orders-ol">
+                        <li id="clear-li-text">Корзина пуста</li>
+                    </ol>
+                </div>
+                <a href="#">
+                    <button type="button" id="orders-button">Перейти в корзину</button>
+                </a>
+                <button type="button" id="orders-button-clear">Очистить корзину</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../script.js"></script>
+</body>
+</html>

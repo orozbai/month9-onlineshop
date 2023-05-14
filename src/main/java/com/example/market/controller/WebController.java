@@ -2,6 +2,7 @@ package com.example.market.controller;
 
 import com.example.market.entity.Category;
 import com.example.market.entity.Product;
+import com.example.market.mapper.ProductMapper;
 import com.example.market.service.CategoryService;
 import com.example.market.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class WebController {
     final private CategoryService categoryService;
     final private ProductService productService;
 
-    @GetMapping("products/")
+    @GetMapping("product/products")
     public String listProducts(@RequestParam(name = "page", defaultValue = "0") int page,
                                @RequestParam(name = "size", defaultValue = "3") int size,
                                @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
@@ -55,13 +56,16 @@ public class WebController {
 
         List<Category> categories = categoryService.getAllCategory();
         model.addAttribute("categories", categories);
-        //сделать страничку с формой поиска и таблицей для отображения товаров
-        //изменить контроллер чтобы раобтал freemarker
         return "products";
     }
 
-    @GetMapping()
+    @GetMapping("products")
+    public String getProductWithName() {
+        return "page";
+    }
+
+    @GetMapping("shop")
     public String mainPage() {
-        return "main";
+        return "shopcopy";
     }
 }

@@ -7,5 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MarketApplication {
     public static void main(String[] args) {
         SpringApplication.run(MarketApplication.class, args);
+        System.out.println("http://localhost:8089/shop");
     }
 }
