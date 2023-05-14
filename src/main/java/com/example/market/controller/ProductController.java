@@ -49,4 +49,15 @@ public class ProductController {
                 .map(product -> productMapper.fromProduct(product))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("brand")
+    public List<ProductDto> getProductWithBrand(@RequestParam("name") String name,
+                                               @RequestParam(value = "page", defaultValue = "0") int page,
+                                               @RequestParam(required = false, defaultValue = "4") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productService.findByBrandPage(name, pageable)
+                .stream()
+                .map(product -> productMapper.fromProduct(product))
+                .collect(Collectors.toList());
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -36,5 +37,9 @@ public class ProductService {
 
     public Page<Product> getThreeProducts(Pageable pageable) {
         return productRepository.findAllBy(pageable);
+    }
+
+    public Page<Product> findByBrandPage(String name, Pageable pageable) {
+        return productRepository.findByBrandPage(name, pageable);
     }
 }

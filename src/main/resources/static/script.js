@@ -122,10 +122,20 @@ if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
 function createProducts(data) {
     if (data.length !== 4) {
         const div = document.querySelector('.next');
-        div.style.display = 'none';
+        if (div) {
+            div.style.display = 'none';
+        } else {
+            const newDiv = document.getElementById('next');
+            newDiv.style.display = 'none';
+        }
     } else {
         const div = document.querySelector('.next');
-        div.style.display = 'flex';
+        if (div) {
+            div.style.display = 'flex';
+        } else {
+            const newDiv = document.getElementById('next');
+            newDiv.style.display = 'flex';
+        }
     }
     for (const p of data) {
         const form = new FormData();
@@ -194,3 +204,97 @@ document.getElementById('orders-button-clear').addEventListener('click', functio
     emptyListItem.textContent = 'Корзина пуста';
     list.appendChild(emptyListItem);
 });
+
+const dropdown = document.querySelector('.dropdown');
+const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+dropdown.querySelector('.dropbtn').addEventListener('click', function () {
+    dropdownContent.classList.toggle('show');
+});
+
+window.addEventListener('click', function (event) {
+    if (!event.target.matches('.dropbtn')) {
+        dropdownContent.classList.remove('show');
+    }
+});
+
+const brand = document.getElementById('search-form-hidden');
+
+if (brand) {
+    brand.addEventListener("submit", brandSearch);
+}
+
+async function brandSearch(e) {
+    e.preventDefault();
+    let formData = new FormData(e.target);
+    const switchStart = document.querySelector('.switch-start');
+    if (switchStart.style.display === 'none') {
+        switchStart.style.display = 'flex';
+    }
+    let name = formData.get('s');
+    let page = formData.get('h');
+    await fetch(basicUrl + `product/brand?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            let div = document.querySelector('.card-col');
+            div.remove();
+            const urlParams = new URLSearchParams({
+                s: formData.get('s'),
+                h: formData.get('h')
+            });
+            const newUrl = window.location.pathname + '?' + urlParams.toString();
+            window.history.pushState({}, '', newUrl);
+            createProducts(data);
+        })
+        .catch(error => console.error(error));
+}
+
+const nextShop = document.getElementById('next');
+if (nextShop) {
+    nextShop.addEventListener('click', nextShopFunc);
+}
+
+async function nextShopFunc(e) {
+    e.preventDefault();
+    const urlParam = new URLSearchParams(window.location.search);
+    const name = urlParam.get('s');
+    let page = parseInt(urlParam.get('h')) || 0;
+    page = page + 1;
+    urlParam.set('h', page.toString());
+    const newUrl = window.location.pathname + '?' + urlParam.toString();
+    window.history.replaceState({}, '', newUrl)
+    await fetch(basicUrl + `product/brand?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const element = document.getElementById('content-products');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            createProducts(data);
+        })
+}
+
+const prevShop = document.getElementById('prev');
+if (prevShop) {
+    prevShop.addEventListener('click', prevShopFunc);
+}
+
+async function prevShopFunc(e) {
+    e.preventDefault();
+    const urlParam = new URLSearchParams(window.location.search);
+    const name = urlParam.get('s');
+    let page = parseInt(urlParam.get('h')) || 0;
+    page = Math.max(0, page - 1);
+    urlParam.set('h', page.toString());
+    const newUrl = window.location.pathname + '?' + urlParam.toString();
+    window.history.replaceState({}, '', newUrl)
+    await fetch(basicUrl + `product/brand?name=${name}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const element = document.getElementById('content-products');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            createProducts(data);
+        })
+}

@@ -98,6 +98,10 @@
             </form>
         </div>
         <div id="content">
+            <div class="switch-start" style="display: none">
+                <button id="prev" type="button" style="display: flex">Предыдущая страница</button>
+                <button id="next" type="button" style="display: flex">Следующая страница</button>
+            </div>
             <div class="card-col">
                 <div class="cards">
                     <img src="../images/video-card.jpg" alt="image" class="card-image">
@@ -132,6 +136,9 @@
                     <p class="card-name">Блоки питания</p>
                 </div>
             </div>
+            <div id="content-products">
+
+            </div>
         </div>
         <div id="right-column">
             <div class="search-right-col">
@@ -142,6 +149,18 @@
                     </label>
                     <button type="submit" id="search-button">Поиск</button>
                 </form>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Расширенный поиск</button>
+                <div class="dropdown-content">
+                    <form id="search-form-hidden">
+                        <label>
+                            <input name="s" placeholder="Поиск по бренду" type="search" id="search-input-hidden">
+                            <input name="h" value="0" hidden id="hidden-search-input">
+                        </label>
+                        <button type="submit" id="search-button-brand">Поиск</button>
+                    </form>
+                </div>
             </div>
             <div class="orders">
                 <h3 id="orders-title">Ваша корзина</h3>
