@@ -251,10 +251,16 @@ async function brandSearch(e) {
     let page = formData.get('h');
     let name = formData.get('s');
     let description = formData.get('d');
+    let min = formData.get('min');
+    let max = formData.get('max');
     let url;
     console.log(name)
     console.log(description);
-    if (name && description) {
+    if (name && description && min && max) {
+        url = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
+    } else if (min && max) {
+        url = `product/brand?min=${min}&max=${max}`;
+    } else if (name && description) {
         url = `product/brand?name=${name}&page=${page}&description=${description}`;
     } else if (name) {
         url = `product/brand?name=${name}&page=${page}`;
@@ -275,7 +281,9 @@ async function brandSearch(e) {
             const urlParams = new URLSearchParams({
                 s: formData.get('s'),
                 h: formData.get('h'),
-                d: formData.get('d')
+                d: formData.get('d'),
+                min: formData.get('min'),
+                max: formData.get('max')
             });
             const newUrl = window.location.pathname + '?' + urlParams.toString();
             window.history.pushState({}, '', newUrl);
@@ -294,13 +302,19 @@ async function nextShopFunc(e) {
     const urlParam = new URLSearchParams(window.location.search);
     const name = urlParam.get('s');
     const description = urlParam.get('d');
+    let min = urlParam.get('min');
+    let max = urlParam.get('max');
     let page = parseInt(urlParam.get('h')) || 0;
     page = page + 1;
     urlParam.set('h', page.toString());
     const newUrl = window.location.pathname + '?' + urlParam.toString();
     window.history.replaceState({}, '', newUrl);
     let url;
-    if (name && description) {
+    if (name && description && min && max) {
+        url = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
+    } else if (min && max) {
+        url = `product/brand?min=${min}&max=${max}`;
+    } else if (name && description) {
         url = `product/brand?name=${name}&page=${page}&description=${description}`;
     } else if (name) {
         url = `product/brand?name=${name}&page=${page}`;
@@ -328,13 +342,19 @@ async function prevShopFunc(e) {
     const urlParam = new URLSearchParams(window.location.search);
     const name = urlParam.get('s');
     const description = urlParam.get('d');
+    let min = urlParam.get('min');
+    let max = urlParam.get('max');
     let page = parseInt(urlParam.get('h')) || 0;
     page = Math.max(0, page - 1);
     urlParam.set('h', page.toString());
     const newUrl = window.location.pathname + '?' + urlParam.toString();
     window.history.replaceState({}, '', newUrl)
     let urls;
-    if (name && description) {
+    if (name && description && min && max) {
+        urls = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
+    } else if (min && max) {
+        urls = `product/brand?min=${min}&max=${max}`;
+    } else if (name && description) {
         urls = `product/brand?name=${name}&page=${page}&description=${description}`;
     } else if (name) {
         urls = `product/brand?name=${name}&page=${page}`;

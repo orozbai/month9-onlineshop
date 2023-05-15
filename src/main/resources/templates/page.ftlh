@@ -125,10 +125,14 @@
                 <div class="dropdown-content">
                     <form id="search-form-hidden">
                         <label>
+                            <p>Поиск по бренду</p>
                             <input name="s" placeholder="Поиск по бренду" type="search" id="search-input-hidden">
                             <input name="h" value="0" hidden id="hidden-search-input">
                             <p>Поиск по описанию</p>
                             <input name="d" placeholder="Поиск по описанию" type="search" id="search-input-description">
+                            <p>Диапазон цен</p>
+                            <input name="min" placeholder="Минимальная цена" type="search" id="min-search-input">
+                            <input name="max" placeholder="Максимальная цена" type="search" id="max-search-input">
                         </label>
                         <button type="submit" id="search-button-brand">Поиск</button>
                     </form>

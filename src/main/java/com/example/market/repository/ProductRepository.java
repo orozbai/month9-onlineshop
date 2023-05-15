@@ -32,4 +32,17 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product as p where p.description like %:description%")
     Page<Product> findByDesc(String description, Pageable pageable);
+
+    @Query("select p from Product as p where p.brand.brand like %:name% and p.description like %:description% and p.price " +
+            " between :min and :max")
+    Page<Product> findByMinMaxNameDesc(String name, String description, Integer min, Integer max, Pageable pageable);
+
+    @Query("select p from Product as p where p.price between :min and :max ")
+    Page<Product> findByPriceBetweenPage(Integer min, Integer max, Pageable pageable);
+
+    @Query("select p from Product as p where p.name like %:name% and p.price between :min and :max")
+    Page<Product> findByNameAndBetween(String name, Integer min, Integer max, Pageable pageable);
+
+    @Query("select p from Product as p where p.description like :description and p.price between :min and :max")
+    Page<Product> findByDescBetween(String description, Integer min, Integer max, Pageable pageable);
 }

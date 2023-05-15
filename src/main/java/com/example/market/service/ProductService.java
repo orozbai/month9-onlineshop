@@ -1,5 +1,6 @@
 package com.example.market.service;
 
+import com.example.market.dto.ProductDto;
 import com.example.market.entity.Product;
 import com.example.market.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -48,5 +49,21 @@ public class ProductService {
 
     public Page<Product> findByDesc(String description, Pageable pageable) {
         return productRepository.findByDesc(description, pageable);
+    }
+
+    public Page<Product> findByMaxMinNameDesc(String name, String description, Integer min, Integer max, Pageable pageable) {
+        return productRepository.findByMinMaxNameDesc(name, description, min, max, pageable);
+    }
+
+    public Page<Product> findByBetween(Integer max, Integer min, Pageable pageable) {
+        return productRepository.findByPriceBetweenPage(min, max, pageable);
+    }
+
+    public Page<Product> findByNameBetween(String name, Integer min, Integer max, Pageable pageable) {
+        return productRepository.findByNameAndBetween(name, min, max, pageable);
+    }
+
+    public Page<Product> findByDescBetween(String description, Integer min, Integer max, Pageable pageable) {
+        return productRepository.findByDescBetween(description, min, max, pageable);
     }
 }
