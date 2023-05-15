@@ -17,6 +17,12 @@ async function searchPage(e) {
     let formData = new FormData(e.target);
     let name = formData.get('s');
     let page = formData.get('h');
+    const switchStart = document.querySelector('.switch-start');
+    const switchStartBrand = document.querySelector('.switch-start-brand');
+    if (switchStart) {
+        switchStartBrand.style.display = 'none';
+        switchStart.style.display = 'flex';
+    }
     await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
         .then(response => response.json())
         .then(data => {
@@ -108,7 +114,14 @@ async function prevPage(e) {
 if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
     const productAsJson = localStorage.getItem('data-script');
     const url = localStorage.getItem('data-url');
-    const newUrl = window.location.pathname + '?' + url.toString();
+    let newUrl;
+    if (url) {
+        newUrl = window.location.pathname + '?' + url.toString();
+    }
+    const switchStart = document.querySelector('.switch-start');
+    if (switchStart) {
+        switchStart.style.display = 'flex';
+    }
     if (newUrl) {
         window.history.pushState({}, '', newUrl);
     }
@@ -227,7 +240,11 @@ if (brand) {
 async function brandSearch(e) {
     e.preventDefault();
     let formData = new FormData(e.target);
-    const switchStart = document.querySelector('.switch-start');
+    const switchStart = document.querySelector('.switch-start-brand');
+    const switchStartHide = document.querySelector('.switch-start');
+    if (switchStartHide) {
+        switchStartHide.style.display = 'none';
+    }
     if (switchStart.style.display === 'none') {
         switchStart.style.display = 'flex';
     }
@@ -237,7 +254,13 @@ async function brandSearch(e) {
         .then(response => response.json())
         .then(data => {
             let div = document.querySelector('.card-col');
-            div.remove();
+            if (div) {
+                div.remove();
+            }
+            const element = document.getElementById('content-products');
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
             const urlParams = new URLSearchParams({
                 s: formData.get('s'),
                 h: formData.get('h')

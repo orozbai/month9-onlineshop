@@ -98,7 +98,7 @@
             </form>
         </div>
         <div id="content">
-            <div class="switch-start" style="display: none">
+            <div class="switch-start-brand" style="display: none">
                 <button id="prev" type="button" style="display: flex">Предыдущая страница</button>
                 <button id="next" type="button" style="display: flex">Следующая страница</button>
             </div>
