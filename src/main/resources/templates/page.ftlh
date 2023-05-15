@@ -127,6 +127,8 @@
                         <label>
                             <input name="s" placeholder="Поиск по бренду" type="search" id="search-input-hidden">
                             <input name="h" value="0" hidden id="hidden-search-input">
+                            <p>Поиск по описанию</p>
+                            <input name="d" placeholder="Поиск по описанию" type="search" id="search-input-description">
                         </label>
                         <button type="submit" id="search-button-brand">Поиск</button>
                     </form>

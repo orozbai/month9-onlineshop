@@ -248,9 +248,20 @@ async function brandSearch(e) {
     if (switchStart.style.display === 'none') {
         switchStart.style.display = 'flex';
     }
-    let name = formData.get('s');
     let page = formData.get('h');
-    await fetch(basicUrl + `product/brand?name=${name}&page=${page}`)
+    let name = formData.get('s');
+    let description = formData.get('d');
+    let url;
+    console.log(name)
+    console.log(description);
+    if (name && description) {
+        url = `product/brand?name=${name}&page=${page}&description=${description}`;
+    } else if (name) {
+        url = `product/brand?name=${name}&page=${page}`;
+    } else {
+        url = `product/brand?description=${description}&page=${page}`;
+    }
+    await fetch(basicUrl + url)
         .then(response => response.json())
         .then(data => {
             let div = document.querySelector('.card-col');
@@ -263,7 +274,8 @@ async function brandSearch(e) {
             }
             const urlParams = new URLSearchParams({
                 s: formData.get('s'),
-                h: formData.get('h')
+                h: formData.get('h'),
+                d: formData.get('d')
             });
             const newUrl = window.location.pathname + '?' + urlParams.toString();
             window.history.pushState({}, '', newUrl);
@@ -281,12 +293,21 @@ async function nextShopFunc(e) {
     e.preventDefault();
     const urlParam = new URLSearchParams(window.location.search);
     const name = urlParam.get('s');
+    const description = urlParam.get('d');
     let page = parseInt(urlParam.get('h')) || 0;
     page = page + 1;
     urlParam.set('h', page.toString());
     const newUrl = window.location.pathname + '?' + urlParam.toString();
-    window.history.replaceState({}, '', newUrl)
-    await fetch(basicUrl + `product/brand?name=${name}&page=${page}`)
+    window.history.replaceState({}, '', newUrl);
+    let url;
+    if (name && description) {
+        url = `product/brand?name=${name}&page=${page}&description=${description}`;
+    } else if (name) {
+        url = `product/brand?name=${name}&page=${page}`;
+    } else {
+        url = `product/brand?description=${description}&page=${page}`;
+    }
+    await fetch(basicUrl + url)
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');
@@ -306,12 +327,21 @@ async function prevShopFunc(e) {
     e.preventDefault();
     const urlParam = new URLSearchParams(window.location.search);
     const name = urlParam.get('s');
+    const description = urlParam.get('d');
     let page = parseInt(urlParam.get('h')) || 0;
     page = Math.max(0, page - 1);
     urlParam.set('h', page.toString());
     const newUrl = window.location.pathname + '?' + urlParam.toString();
     window.history.replaceState({}, '', newUrl)
-    await fetch(basicUrl + `product/brand?name=${name}&page=${page}`)
+    let urls;
+    if (name && description) {
+        urls = `product/brand?name=${name}&page=${page}&description=${description}`;
+    } else if (name) {
+        urls = `product/brand?name=${name}&page=${page}`;
+    } else {
+        urls = `product/brand?description=${description}&page=${page}`;
+    }
+    await fetch(basicUrl + urls)
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');

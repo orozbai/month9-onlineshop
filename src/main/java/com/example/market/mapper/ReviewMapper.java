@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReviewMapper {
-    public static ReviewDto fromReview(Reviews reviews) {
+    public ReviewDto fromReview(Reviews reviews) {
         return ReviewDto.builder()
                 .description(reviews.getDescription())
                 .descriptionTime(reviews.getDescriptionTime())
