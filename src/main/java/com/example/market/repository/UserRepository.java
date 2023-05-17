@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select u from User as u where u.email like %:email%")
@@ -15,4 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select u from User as u where u.username like %:username%")
     List<User> findAllUserByUsername(String username);
+
+    Optional<User> getByEmail(String email);
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public class OrderMapper {
-    public static OrderDto fromOrder(Order order) {
+    public OrderDto fromOrder(Order order) {
         return OrderDto.builder()
                 .orderTime(order.getOrderTime())
                 .delivery(order.getDelivery())

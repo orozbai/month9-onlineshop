@@ -111,6 +111,14 @@
             </div>
         </div>
         <div id="right-column">
+            <div>
+                <a href="/register">
+                    <button type="button" class="link-button">Зарегестрироваться</button>
+                </a>
+                <a href="/login">
+                    <button type="button" class="link-button">Авторизоваться</button>
+                </a>
+            </div>
             <div class="search-right-col">
                 <form id="search-form-page">
                     <label>

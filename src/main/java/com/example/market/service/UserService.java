@@ -4,13 +4,18 @@ import com.example.market.dto.UserRegistrationDto;
 import com.example.market.entity.User;
 import com.example.market.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
     final private UserRepository userRepository;
 
     public List<User> findByEmail(String email) {
@@ -30,8 +35,19 @@ public class UserService {
                 .name(registrationDto.getName())
                 .email(registrationDto.getEmail())
                 .username(registrationDto.getUsername())
-                .password(registrationDto.getPassword())
+                .password(new BCryptPasswordEncoder().encode(registrationDto.getPassword()))
+                .enabled(true)
+                .role("FULL")
                 .build();
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> optUser = userRepository.getByEmail(username);
+        if (optUser.isEmpty()) {
+            throw new UsernameNotFoundException("Not found");
+        }
+        return optUser.get();
     }
 }
