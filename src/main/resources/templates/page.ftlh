@@ -112,11 +112,15 @@
         </div>
         <div id="right-column">
             <div>
+                <p id="link-profile-name" style="display: block"></p>
+                <a href="/login" style="display: block" id="link-login">
+                    <button class="link-button" type="button">Login</button>
+                </a>
+                <a href="/logout" style="display: block" id="logout-link">
+                    <button class="link-button" type="button" id="logout-button">Выйти</button>
+                </a>
                 <a href="/register">
                     <button type="button" class="link-button">Зарегестрироваться</button>
-                </a>
-                <a href="/login">
-                    <button type="button" class="link-button">Авторизоваться</button>
                 </a>
             </div>
             <div class="search-right-col">

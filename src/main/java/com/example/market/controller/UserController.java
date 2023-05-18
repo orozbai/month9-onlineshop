@@ -7,6 +7,9 @@ import com.example.market.mapper.UserMapper;
 import com.example.market.service.OrderService;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -69,5 +72,14 @@ public class UserController {
                 .stream()
                 .map(orderMapper::fromOrder)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("current-user")
+    public ResponseEntity<String> getUser(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null && userDetails.getUsername() != null && !userDetails.getUsername().isEmpty()) {
+            return ResponseEntity.ok("{\"user\":\"" + userDetails.getUsername() + "\"}");
+        } else {
+            return ResponseEntity.ok("{\"error\":\"Пользователь не авторизован\"}");
+        }
     }
 }

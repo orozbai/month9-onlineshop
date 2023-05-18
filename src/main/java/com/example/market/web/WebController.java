@@ -4,7 +4,7 @@ import com.example.market.dto.UserRegistrationDto;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +17,28 @@ import javax.validation.Valid;
 @RequestMapping("/")
 public class WebController {
 
+    final private UserService userService;
+
     @GetMapping("products")
     public String getProductWithName() {
         return "page";
+    }
+
+    @GetMapping("logout")
+    public String logoutGet() {
+        SecurityContextHolder.clearContext();
+        return "redirect:/login";
+    }
+
+    @PostMapping("logout")
+    public String logout() {
+        SecurityContextHolder.clearContext();
+        return "redirect:/login";
+    }
+
+    @GetMapping("/error/405")
+    public String handle405Error() {
+        return "shopcopy";
     }
 
     @GetMapping()
@@ -49,6 +68,4 @@ public class WebController {
         userService.registerUser(registrationDto);
         return ResponseEntity.ok("Вы успешно зарегестрировались!");
     }
-
-    final private UserService userService;
 }

@@ -139,6 +139,49 @@ async function prevPage(e) {
         })
 }
 
+window.addEventListener('load', async function (e) {
+    e.preventDefault();
+    await fetch(basicUrl + 'user/current-user')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка получения данных');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const p = document.getElementById('link-profile-name');
+            const elem = document.getElementById('link-login');
+            const button = document.getElementById('logout-link');
+            if (elem) {
+                console.log(data)
+                if (!data.error) {
+                    p.style.display = 'block';
+                    p.innerText = data.user;
+                    button.style.display = 'block';
+                    elem.style.display = 'none';
+                } else {
+                    elem.style.display = 'block';
+                    p.style.display = 'none';
+                    button.style.display = 'none';
+                }
+            }
+        });
+})
+
+document.getElementById('logout-button').addEventListener('click', async function (e) {
+    e.preventDefault();
+    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+    console.log("csrfs token " + csrfToken);
+    await fetch(basicUrl + 'logout', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+    window.location.href = basicUrl + 'login';
+})
+
 if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
     const productAsJson = localStorage.getItem('data-script');
     const url = localStorage.getItem('data-url');

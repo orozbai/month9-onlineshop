@@ -19,10 +19,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form action="/">
-                <#if _csrf??>
-                    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
-                </#if>
+            <form id="login-form" method="post" action="/login">
                 <div class="mb-3">
                     <#if error>
                         <div class="alert alert-danger" role="alert">
@@ -40,8 +37,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                           minlength="8">
                 </div>
+                <#if _csrf??>
+                    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+                </#if>
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>

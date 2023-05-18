@@ -28,12 +28,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers().permitAll()
+                .antMatchers("/login", "/register").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").successForwardUrl("/").permitAll()
-                .and()
                 .logout().logoutSuccessUrl("/login").clearAuthentication(true);
+        http
+                .formLogin()
+                .loginPage("/login")
+                .successForwardUrl("/")
+                .failureForwardUrl("/login?error")
+                .permitAll()
+                .and()
+                .csrf().ignoringAntMatchers("/logout");
+        http
+                .sessionManagement()
+                .invalidSessionUrl("/login?logout")
+                .maximumSessions(5).expiredUrl("/login?logout")
+                .maxSessionsPreventsLogin(true);
     }
 
     @Override
