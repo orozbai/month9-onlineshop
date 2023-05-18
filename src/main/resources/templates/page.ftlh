@@ -124,6 +124,10 @@
                     <label>
                         <input name="s" placeholder="Поиск" type="search" id="search-input">
                         <input name="h" value="0" hidden id="search-input-hidden">
+                        <#if _csrf??>
+                            <meta name="_csrf_header" content="${_csrf.headerName}"/>
+                            <meta name="_csrf_token" content="${_csrf.token}"/>
+                        </#if>
                     </label>
                     <button type="submit" id="search-button">Поиск</button>
                 </form>
@@ -141,6 +145,10 @@
                             <p>Диапазон цен</p>
                             <input name="min" placeholder="Минимальная цена" type="search" id="min-search-input">
                             <input name="max" placeholder="Максимальная цена" type="search" id="max-search-input">
+                            <#if _csrf??>
+                                <meta name="_csrf_header" content="${_csrf.headerName}"/>
+                                <meta name="csrf-token" content="${_csrf.token}"/>
+                            </#if>
                         </label>
                         <button type="submit" id="search-button-brand">Поиск</button>
                     </form>

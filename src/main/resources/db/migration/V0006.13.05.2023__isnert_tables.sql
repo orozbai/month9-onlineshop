@@ -6,7 +6,7 @@ values ('Nvidia'),
 insert into products(name, description, price, count, brand_id, category_id, image_link)
 values ('Intel Core i9-11900K', '11th Gen desktop processor with 8 cores and 16 threads', 599, 5, 5, 1, 'cpu.jpg'),
        ('AMD Ryzen 7 5800X', 'Desktop processor with 8 cores and 16 threads', 449, 7, 9, 1, 'cpu.jpg'),
-       ('Nvidia GeForce RTX 3080', 'High-end graphics card with 10GB GDDR6X memory and ray tracing', 799, 3, 10, 5,
+       ('Nvidia GeForce RTX 3080', 'High-end graphics card with 10GB GDDR6X memory and ray tracing', 799, 3, 9, 5,
         'video-card.jpg'),
        ('Corsair Vengeance RGB Pro', '32GB (2 x 16GB) DDR4 RAM kit with 3200MHz speed and RGB lighting', 199, 11, 10, 4,
         'ram.jpg'),
@@ -19,4 +19,4 @@ values ('Intel Core i9-11900K', '11th Gen desktop processor with 8 cores and 16 
        ('Fractal Design Meshify C', 'Mid-tower PC case with tempered glass side panel and mesh front panel', 99, 15, 7,
         7, 'frame.jpg'),
        ('Nvidia GeForce RTX 3070', 'Wired gaming keyboard with user-swappable switches and RGB lighting', 349, 6,
-        10, 4, 'video-card.jpg');
+        9, 4, 'video-card.jpg');

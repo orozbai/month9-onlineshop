@@ -58,7 +58,6 @@ public class ProductController {
                                                 @RequestParam(required = false, defaultValue = "4") int size,
                                                 @RequestParam(value = "min", required = false) Integer min,
                                                 @RequestParam(value = "max", required = false) Integer max) {
-        System.out.println(name + " de "+ description + " price "+ min + max);
         Pageable pageable = PageRequest.of(page, size);
         List<ProductDto> list = new ArrayList<>();
         if (name != null && description != null && min != null && max != null) {
@@ -66,31 +65,26 @@ public class ProductController {
                     .stream()
                     .map(productMapper::fromProduct)
                     .collect(Collectors.toList());
-            System.out.println(1);
         } else if (name != null && description != null) {
             list = productService.findByBrandAndDesc(name, description, pageable)
                     .stream()
                     .map(productMapper::fromProduct)
                     .collect(Collectors.toList());
-            System.out.println(2);
         } else if (name != null && min != null && max != null) {
             list = productService.findByNameBetween(name, min, max, pageable)
                     .stream()
                     .map(productMapper::fromProduct)
                     .collect(Collectors.toList());
-            System.out.println(3);
         } else if (description != null && min != null && max != null) {
             list = productService.findByDescBetween(description, min, max, pageable)
                     .stream()
                     .map(productMapper::fromProduct)
                     .collect(Collectors.toList());
-            System.out.println(4);
         } else if (min != null && max != null) {
             list = productService.findByBetween(max, min, pageable)
                     .stream()
                     .map(productMapper::fromProduct)
                     .collect(Collectors.toList());
-            System.out.println(5);
         } else if (name != null) {
             list = productService.findByBrandPage(name, pageable)
                     .stream()

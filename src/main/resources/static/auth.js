@@ -9,10 +9,12 @@ if (registerForm != null) {
         loginFormData.append('password', document.getElementById('register-password').value);
         const email = document.getElementById('register-email').value;
         loginFormData.append('email', email);
+        const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
         await fetch('http://localhost:8089/register', {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
             },
             body: JSON.stringify(Object.fromEntries(formData))
         });

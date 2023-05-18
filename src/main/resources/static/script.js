@@ -23,7 +23,14 @@ async function searchPage(e) {
         switchStartBrand.style.display = 'none';
         switchStart.style.display = 'flex';
     }
-    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');
@@ -46,7 +53,14 @@ async function search(e) {
     let formData = new FormData(e.target);
     let name = formData.get('s');
     let page = formData.get('h');
-    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const productAsJson = JSON.stringify(data);
@@ -75,7 +89,14 @@ async function nextPage(e) {
     urlParam.set('h', page.toString());
     const newUrl = window.location.pathname + '?' + urlParam.toString();
     window.history.replaceState({}, '', newUrl)
-    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');
@@ -100,7 +121,14 @@ async function prevPage(e) {
     urlParam.set('h', page.toString());
     const newUrl = window.location.pathname + '?' + urlParam.toString();
     window.history.replaceState({}, '', newUrl)
-    await fetch(basicUrl + `product/search?name=${name}&page=${page}`)
+    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+    await fetch(basicUrl + `product/search?name=${name}&page=${page}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');
@@ -255,11 +283,10 @@ async function brandSearch(e) {
     let max = formData.get('max');
     let url;
     console.log(name)
-    console.log(description);
     if (name && description && min && max) {
         url = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
     } else if (min && max) {
-        url = `product/brand?min=${min}&max=${max}`;
+        url = `product/brand?min=${min}&max=${max}&page=${page}`;
     } else if (name && description) {
         url = `product/brand?name=${name}&page=${page}&description=${description}`;
     } else if (name) {
@@ -267,7 +294,14 @@ async function brandSearch(e) {
     } else {
         url = `product/brand?description=${description}&page=${page}`;
     }
-    await fetch(basicUrl + url)
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    await fetch(basicUrl + url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             let div = document.querySelector('.card-col');
@@ -313,7 +347,7 @@ async function nextShopFunc(e) {
     if (name && description && min && max) {
         url = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
     } else if (min && max) {
-        url = `product/brand?min=${min}&max=${max}`;
+        url = `product/brand?min=${min}&max=${max}&page=${page}`;
     } else if (name && description) {
         url = `product/brand?name=${name}&page=${page}&description=${description}`;
     } else if (name) {
@@ -321,7 +355,14 @@ async function nextShopFunc(e) {
     } else {
         url = `product/brand?description=${description}&page=${page}`;
     }
-    await fetch(basicUrl + url)
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    await fetch(basicUrl + url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');
@@ -353,7 +394,7 @@ async function prevShopFunc(e) {
     if (name && description && min && max) {
         urls = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
     } else if (min && max) {
-        urls = `product/brand?min=${min}&max=${max}`;
+        urls = `product/brand?min=${min}&max=${max}&page=${page}`;
     } else if (name && description) {
         urls = `product/brand?name=${name}&page=${page}&description=${description}`;
     } else if (name) {
@@ -361,7 +402,14 @@ async function prevShopFunc(e) {
     } else {
         urls = `product/brand?description=${description}&page=${page}`;
     }
-    await fetch(basicUrl + urls)
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    await fetch(basicUrl + urls, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const element = document.getElementById('content-products');
