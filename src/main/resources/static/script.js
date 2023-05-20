@@ -153,7 +153,6 @@ window.addEventListener('load', async function (e) {
             const elem = document.getElementById('link-login');
             const button = document.getElementById('logout-link');
             if (elem) {
-                console.log(data)
                 if (!data.error) {
                     p.style.display = 'block';
                     p.innerText = data.user;
@@ -171,7 +170,6 @@ window.addEventListener('load', async function (e) {
 document.getElementById('logout-button').addEventListener('click', async function (e) {
     e.preventDefault();
     const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
-    console.log("csrfs token " + csrfToken);
     await fetch(basicUrl + 'logout', {
         method: 'POST',
         headers: {
@@ -179,7 +177,7 @@ document.getElementById('logout-button').addEventListener('click', async functio
             'X-CSRF-TOKEN': csrfToken
         }
     })
-    window.location.href = basicUrl + 'login';
+    window.location.href = basicUrl + 'login?logout';
 })
 
 if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
@@ -325,7 +323,6 @@ async function brandSearch(e) {
     let min = formData.get('min');
     let max = formData.get('max');
     let url;
-    console.log(name)
     if (name && description && min && max) {
         url = `product/brand?name=${name}&page=${page}&description=${description}&min=${min}&max=${max}`;
     } else if (min && max) {
