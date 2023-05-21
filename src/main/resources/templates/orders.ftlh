@@ -102,10 +102,22 @@
             </form>
         </div>
         <div id="content">
-            <button type="button" id="cart-details">Детали заказа</button>
-            <div id="user-orders">
+            <form id="basket-form">
+                <button type="button" id="cart-details">Оформить заказ</button>
+                <div id="user-orders">
 
+                </div>
+            </form>
+            <div id="myModal" class="modal" style="display: none">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="modal-content-text">
+                        <p>Итоговая сумма</p>
+                        <p id="total-price">0</p>
+                    </div>
+                </div>
             </div>
+
         </div>
         <div id="right-column">
             <div>
