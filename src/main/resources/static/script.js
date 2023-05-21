@@ -167,18 +167,21 @@ window.addEventListener('load', async function (e) {
         });
 })
 
-document.getElementById('logout-button').addEventListener('click', async function (e) {
-    e.preventDefault();
-    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
-    await fetch(basicUrl + 'logout', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-        }
+const logoutButtonIf = document.getElementById('logout-button');
+if (logoutButtonIf) {
+    document.getElementById('logout-button').addEventListener('click', async function (e) {
+        e.preventDefault();
+        const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+        await fetch(basicUrl + 'logout', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            }
+        })
+        window.location.href = basicUrl + 'login?logout';
     })
-    window.location.href = basicUrl + 'login?logout';
-})
+}
 
 if (window.location.href.indexOf(basicUrl + 'products') !== -1) {
     const productAsJson = localStorage.getItem('data-script');
@@ -228,6 +231,7 @@ function createProducts(data) {
         form.append('brand', p.brand);
         form.append('category', p.category);
         form.append('image', p.image);
+        form.append('id', p.id);
         insertProductsElem(form);
     }
 }
@@ -235,12 +239,20 @@ function createProducts(data) {
 function insertProductsElem(form) {
     const divElem = document.createElement('div');
     divElem.classList.add('products');
+    divElem.id = 'product-' + form.get('id');
 
     const image = document.createElement('img');
     image.classList.add('products-images')
     image.src = '../images/' + form.get('image');
     image.alt = form.get('image');
     divElem.appendChild(image);
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('cart-button');
+    button.textContent = 'Добавить в корзину';
+    button.setAttribute('onclick', 'addBasket("product-' + form.get('id') + '", event)');
+    divElem.appendChild(button);
 
     const div = document.createElement('div');
     div.classList.add('products-div');
@@ -275,30 +287,35 @@ function insertProductsElem(form) {
     localStorage.removeItem('data-script')
 }
 
-document.getElementById('orders-button-clear').addEventListener('click', function (e) {
-    e.preventDefault();
-    let list = document.getElementById('orders-ol');
-    while (list.firstChild) {
-        list.removeChild(list.firstChild);
-    }
-    let emptyListItem = document.createElement('li');
-    emptyListItem.id = 'clear-li-text';
-    emptyListItem.textContent = 'Корзина пуста';
-    list.appendChild(emptyListItem);
-});
+const ordersButtonClear = document.getElementById('orders-button-clear');
+if (ordersButtonClear) {
+    document.getElementById('orders-button-clear').addEventListener('click', function (e) {
+        e.preventDefault();
+        let list = document.getElementById('orders-ol');
+        while (list.firstChild) {
+            list.removeChild(list.firstChild);
+        }
+        let emptyListItem = document.createElement('li');
+        emptyListItem.id = 'clear-li-text';
+        emptyListItem.textContent = 'Корзина пуста';
+        list.appendChild(emptyListItem);
+    });
+}
 
 const dropdown = document.querySelector('.dropdown');
-const dropdownContent = dropdown.querySelector('.dropdown-content');
+if (dropdown) {
+    const dropdownContent = dropdown.querySelector('.dropdown-content');
 
-dropdown.querySelector('.dropbtn').addEventListener('click', function () {
-    dropdownContent.classList.toggle('show');
-});
+    dropdown.querySelector('.dropbtn').addEventListener('click', function () {
+        dropdownContent.classList.toggle('show');
+    });
 
-window.addEventListener('click', function (event) {
-    if (!event.target.matches('.dropbtn')) {
-        dropdownContent.classList.remove('show');
-    }
-});
+    window.addEventListener('click', function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            dropdownContent.classList.remove('show');
+        }
+    });
+}
 
 const brand = document.getElementById('search-form-hidden');
 
@@ -458,4 +475,49 @@ async function prevShopFunc(e) {
             }
             createProducts(data);
         })
+}
+
+async function addBasket(id, e) {
+    e.preventDefault();
+    const clear = document.getElementById('clear-li-text');
+    if (clear) {
+        clear.remove();
+    }
+    const digits = id.match(/\d/g);
+    const newId = digits.join('');
+    const olElem = document.getElementById('orders-ol');
+    await fetch(basicUrl + `product/id?id=${newId}`)
+        .then(response => response.json())
+        .then(data => {
+            const p = data;
+            const form = new FormData();
+            form.append('name', p.name);
+            form.append('description', p.description);
+            form.append('count', '1');
+            form.append('price', p.price);
+            form.append('brand', p.brand);
+            form.append('category', p.category);
+            form.append('image', p.image);
+            form.append('id', p.id);
+
+            const existingData = sessionStorage.getItem('products');
+            let dataArray = [];
+            if (existingData) {
+                dataArray = JSON.parse(existingData);
+            }
+            const isObjectExists = dataArray.some(obj => JSON.stringify(obj) === JSON.stringify(data))
+            if (!isObjectExists) {
+                dataArray.push(data);
+            }
+            const updatedData = JSON.stringify(dataArray);
+            sessionStorage.setItem('products', updatedData);
+            console.log('id: ' + form.get('id'));
+            let getLiId = document.getElementById(form.get('id') + '-product');
+            if (!getLiId) {
+                const li = document.createElement('li');
+                li.textContent = form.get('name');
+                li.id = form.get('id') + '-product';
+                olElem.appendChild(li);
+            }
+        });
 }

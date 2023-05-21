@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select p from Product as p")
@@ -45,4 +46,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product as p where p.description like :description and p.price between :min and :max")
     Page<Product> findByDescBetween(String description, Integer min, Integer max, Pageable pageable);
+
+    @Query("select p from Product as p where p.id = :id")
+    Optional<Product> getProductById(int id);
 }

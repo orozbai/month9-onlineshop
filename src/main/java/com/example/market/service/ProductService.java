@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -65,5 +66,9 @@ public class ProductService {
 
     public Page<Product> findByDescBetween(String description, Integer min, Integer max, Pageable pageable) {
         return productRepository.findByDescBetween(description, min, max, pageable);
+    }
+
+    public Optional<Product> findById(int id) {
+        return productRepository.getProductById(id);
     }
 }

@@ -125,7 +125,7 @@
     color: white;
 }
 
-#orders-button-clear, #search-button, #search-button-brand, .link-button {
+#orders-button-clear, #search-button, #search-button-brand, .link-button, #cart-button-find {
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: cornflowerblue;
@@ -135,7 +135,7 @@
     color: white;
 }
 
-#orders-button-clear:hover, #search-button:hover, #search-button-brand:hover, .link-button:hover {
+#orders-button-clear:hover, #search-button:hover, #search-button-brand:hover, .link-button:hover, #cart-button-find:hover {
     width: 100%;
     height: 25px;
     background: rgba(0, 0, 0, 0);
@@ -194,7 +194,7 @@
 
 .products {
     max-width: 180px;
-    margin: 0 0 0 20px;
+    margin: 0 0 20px 20px;
     border: black 1px solid;
 }
 
@@ -202,6 +202,7 @@
     max-width: 180px;
     clear: left;
     border: black 1px solid;
+    margin-bottom: 20px;
 }
 
 .products-div p {

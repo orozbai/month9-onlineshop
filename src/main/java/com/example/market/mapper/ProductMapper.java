@@ -15,6 +15,7 @@ public class ProductMapper {
                 .brand(product.getBrand().getBrand())
                 .category(product.getCategory().getCategory())
                 .image(product.getImage())
+                .id(product.getId())
                 .build();
     }
 }

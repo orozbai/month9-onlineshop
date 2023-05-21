@@ -68,4 +68,14 @@ public class WebController {
         userService.registerUser(registrationDto);
         return ResponseEntity.ok("Вы успешно зарегестрировались!");
     }
+
+    @GetMapping("orders")
+    public String getOrders() {
+        return "orders";
+    }
+
+    @PostMapping("orders/add")
+    public void addOrders() {
+
+    }
 }

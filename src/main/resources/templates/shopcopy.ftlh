@@ -194,7 +194,7 @@
                         <li id="clear-li-text">Корзина пуста</li>
                     </ol>
                 </div>
-                <a href="#">
+                <a href="http://localhost:8089/orders">
                     <button type="button" id="orders-button">Перейти в корзину</button>
                 </a>
                 <button type="button" id="orders-button-clear">Очистить корзину</button>

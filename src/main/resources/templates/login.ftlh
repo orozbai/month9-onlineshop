@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="login-form" method="post" action="/login">
+            <form id="login-form"  method="post">
                 <div class="mb-3">
                     <#if error>
                         <div class="alert alert-danger" role="alert">

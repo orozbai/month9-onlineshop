@@ -24,6 +24,14 @@ public class ProductController {
     final private ProductMapper productMapper;
     final private ReviewMapper reviewMapper;
 
+    @GetMapping("id")
+    public ProductDto getProductWithId(@RequestParam(value = "id") int id) {
+        return productService.findById(id)
+                .stream()
+                .map(productMapper::fromProduct)
+                .collect(Collectors.toList()).get(0);
+    }
+
     @GetMapping("all")
     public List<ProductDto> getAllProducts() {
         return productService.getAllProducts()

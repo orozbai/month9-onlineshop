@@ -1,9 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../orders.css">
+    <title>Orders</title>
 </head>
 <body>
 <div class="container">
@@ -98,81 +102,30 @@
             </form>
         </div>
         <div id="content">
-            <div class="switch-start" style="display: flex">
-                <button class="prev" type="button" style="display: flex">Предыдущая страница</button>
-                <button class="next" type="button" style="display: flex">Следующая страница</button>
-            </div>
-            <div class="switch-start-brand" style="display: none">
-                <button id="prev" type="button" style="display: flex">Предыдущая страница</button>
-                <button id="next" type="button" style="display: flex">Следующая страница</button>
-            </div>
-            <div id="content-products">
+            <button type="button" id="cart-details">Детали заказа</button>
+            <div id="user-orders">
 
             </div>
         </div>
         <div id="right-column">
             <div>
-                <p id="link-profile-name" style="display: block"></p>
-                <a href="/login" style="display: block" id="link-login">
-                    <button class="link-button" type="button">Login</button>
-                </a>
-                <a href="/logout" style="display: block" id="logout-link">
-                    <button class="link-button" type="button" id="logout-button">Выйти</button>
-                </a>
-                <a href="/register">
-                    <button type="button" class="link-button">Зарегестрироваться</button>
+                <a href="/">
+                    <button type="button" class="link-button">Продолжить покупки</button>
                 </a>
             </div>
-            <div class="search-right-col">
-                <form id="search-form-page">
+            <div id="cart-identify">
+                <form id="find-user-cart">
+                    <p>Есть идентификатор?</p>
                     <label>
-                        <input name="s" placeholder="Поиск" type="search" id="search-input">
-                        <input name="h" value="0" hidden id="search-input-hidden">
-                        <#if _csrf??>
-                            <meta name="_csrf_header" content="${_csrf.headerName}"/>
-                            <meta name="_csrf_token" content="${_csrf.token}"/>
-                        </#if>
+                        <input type="text" maxlength="10" name="identification" id="input-identify">
                     </label>
-                    <button type="submit" id="search-button">Поиск</button>
+                    <button id="cart-button-find" type="submit">Найти</button>
                 </form>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Расширенный поиск</button>
-                <div class="dropdown-content">
-                    <form id="search-form-hidden">
-                        <label>
-                            <p>Поиск по бренду</p>
-                            <input name="s" placeholder="Поиск по бренду" type="search" id="search-input-hidden">
-                            <input name="h" value="0" hidden id="hidden-search-input">
-                            <p>Поиск по описанию</p>
-                            <input name="d" placeholder="Поиск по описанию" type="search" id="search-input-description">
-                            <p>Диапазон цен</p>
-                            <input name="min" placeholder="Минимальная цена" type="search" id="min-search-input">
-                            <input name="max" placeholder="Максимальная цена" type="search" id="max-search-input">
-                            <#if _csrf??>
-                                <meta name="_csrf_header" content="${_csrf.headerName}"/>
-                                <meta name="csrf-token" content="${_csrf.token}"/>
-                            </#if>
-                        </label>
-                        <button type="submit" id="search-button-brand">Поиск</button>
-                    </form>
-                </div>
-            </div>
-            <div class="orders">
-                <h3 id="orders-title">Ваша корзина</h3>
-                <div id="orders-list">
-                    <ol id="orders-ol">
-                        <li id="clear-li-text">Корзина пуста</li>
-                    </ol>
-                </div>
-                <a href="http://localhost:8089/orders">
-                    <button type="button" id="orders-button">Перейти в корзину</button>
-                </a>
-                <button type="button" id="orders-button-clear">Очистить корзину</button>
             </div>
         </div>
     </div>
 </div>
+<script src="../orders.js"></script>
 <script src="../script.js"></script>
 </body>
 </html>
