@@ -500,15 +500,24 @@ async function addBasket(id, e) {
             form.append('category', p.category);
             form.append('image', p.image);
             form.append('id', p.id);
-
             const existingData = sessionStorage.getItem('products');
             let dataArray = [];
             if (existingData) {
                 dataArray = JSON.parse(existingData);
             }
-            const isObjectExists = dataArray.some(obj => JSON.stringify(obj) === JSON.stringify(data))
+            const objForm = {
+                brand: form.get('brand'),
+                category: form.get('category'),
+                count: parseInt(form.get('count')),
+                description: form.get('description'),
+                id: parseInt(form.get('id')),
+                image: form.get('image'),
+                name: form.get('name'),
+                price: parseInt(form.get('price'))
+            };
+            const isObjectExists = dataArray.some(obj => JSON.stringify(obj) === JSON.stringify(objForm))
             if (!isObjectExists) {
-                dataArray.push(data);
+                dataArray.push(objForm);
             }
             const updatedData = JSON.stringify(dataArray);
             sessionStorage.setItem('products', updatedData);
