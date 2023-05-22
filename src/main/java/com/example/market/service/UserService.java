@@ -50,4 +50,20 @@ public class UserService implements UserDetailsService {
         }
         return optUser.get();
     }
+
+    public void saveGuest(String email) {
+        User user = User.builder()
+                .name("guest")
+                .email(email)
+                .username("guest")
+                .password("guest")
+                .enabled(true)
+                .role("FULL")
+                .build();
+        userRepository.save(user);
+    }
+
+    public int getUserIdByEmail(String email) {
+        return userRepository.getUserIdByEmail(email);
+    }
 }

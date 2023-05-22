@@ -13,6 +13,6 @@ public class OrderDto {
     private Integer price;
     private LocalDateTime orderTime;
     private String userEmail;
-    private List<String> productName;
+    private String productName;
     private Integer productPrice;
 }

@@ -18,6 +18,13 @@ create table reviews
     foreign key (product_id) references products (id) on delete cascade
 );
 
+create table baskets
+(
+    id       serial primary key,
+    products text,
+    identification text
+);
+
 create table orders
 (
     id         serial primary key,
@@ -26,6 +33,6 @@ create table orders
     order_time timestamp not null,
     user_id    integer   not null,
     foreign key (user_id) references users (id) on delete cascade,
-    product_id integer   not null,
-    foreign key (product_id) references products (id) on delete cascade
+    basket_id  integer   not null,
+    foreign key (basket_id) references baskets (id) on delete cascade
 );

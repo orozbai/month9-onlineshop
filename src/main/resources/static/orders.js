@@ -177,7 +177,11 @@ function insertModal(form) {
     const number = parseInt(totalPrice.textContent);
     const intPrice = parseInt(form.get('price'));
     const intCount = parseInt(inputCount);
-    totalPrice.innerHTML = number + (intPrice * intCount);
+    const priceNumber = number + (intPrice * intCount);
+    totalPrice.innerHTML = priceNumber;
+    const modalWindowInput = document.getElementById('modal-window-hidden-input');
+    localStorage.setItem('totalPrice', priceNumber + '');
+    modalWindowInput.textContent = priceNumber;
 
     const divElem = document.getElementById('modal-content-text');
     divElem.appendChild(div);
@@ -187,4 +191,47 @@ function checkValue(input, num) {
     if (input.value > num && input.value > 0) {
         input.value = '';
     }
+}
+
+const deliverButton = document.getElementById('deliver');
+if (deliverButton) {
+    deliverButton.addEventListener('click', sendDeliver);
+}
+
+async function sendDeliver(e) {
+    e.preventDefault()
+    const address = document.getElementById('modal-address').value;
+    const email = document.getElementById('modal-email').value;
+    const products = sessionStorage.getItem('products');
+    const number = localStorage.getItem('totalPrice');
+    localStorage.removeItem('totalPrice');
+    const randomString = generateRandomString(10);
+    const uni = document.getElementById('uni');
+    uni.textContent = 'Ваш идентификатор заказа: ' + randomString;
+    const csrfToken = document.querySelector('meta[name="_csrf_token"]').getAttribute('content');
+    await fetch(basic + `user/delivery?totalPrice=${number}&address=${address}&email=${email}&uni=${randomString}`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify(products)
+    });
+    const modal = document.getElementById('myModal');
+    if (modal.style.display === 'block') {
+        modal.style.display = 'none';
+    }
+}
+
+function generateRandomString(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charactersLength);
+        result += characters.charAt(randomIndex);
+    }
+
+    return result;
 }

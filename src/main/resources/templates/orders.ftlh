@@ -103,6 +103,7 @@
         </div>
         <div id="content">
             <form id="basket-form">
+                <p id="uni"></p>
                 <button type="button" id="cart-details">Оформить заказ</button>
                 <div id="user-orders">
 
@@ -115,6 +116,21 @@
                         <p>Итоговая сумма</p>
                         <p id="total-price">0</p>
                     </div>
+                    <form id="modal-window-form">
+                        <p>Адрес доставки</p>
+                        <#if _csrf??>
+                            <meta name="_csrf_header" content="${_csrf.headerName}"/>
+                            <meta name="_csrf_token" content="${_csrf.token}"/>
+                        </#if>
+                        <label>
+                            <input type="hidden" value="" id="modal-window-hidden-input" name="totalPrice">
+                            <input type="text" id="modal-address" name="address" placeholder="Адресс доставки"
+                                   minlength="1">
+                            <input type="email" id="modal-email" name="email" placeholder="Email" maxlength="30"
+                                   minlength="1">
+                        </label>
+                        <button type="submit" id="deliver">Заказать</button>
+                    </form>
                 </div>
             </div>
 
@@ -131,6 +147,7 @@
                     <label>
                         <input type="text" maxlength="10" name="identification" id="input-identify">
                     </label>
+                    <p>Временно не работает</p>
                     <button id="cart-button-find" type="submit">Найти</button>
                 </form>
             </div>

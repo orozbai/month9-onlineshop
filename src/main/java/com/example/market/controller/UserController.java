@@ -2,8 +2,11 @@ package com.example.market.controller;
 
 import com.example.market.dto.OrderDto;
 import com.example.market.dto.UserDto;
+import com.example.market.entity.Basket;
+import com.example.market.entity.User;
 import com.example.market.mapper.OrderMapper;
 import com.example.market.mapper.UserMapper;
+import com.example.market.service.BasketService;
 import com.example.market.service.OrderService;
 import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 public class UserController {
     final private UserService userService;
     final private UserMapper userMapper;
+    final private BasketService basketService;
 
     final private OrderService orderService;
     final private OrderMapper orderMapper;
@@ -81,5 +85,19 @@ public class UserController {
         } else {
             return ResponseEntity.ok("{\"error\":\"Пользователь не авторизован\"}");
         }
+    }
+
+    @PostMapping("delivery")
+    public ResponseEntity<?> addGuestUserAndDelivery(@RequestParam(value = "totalPrice") int totalPrice,
+                                                     @RequestParam(value = "address") String address,
+                                                     @RequestParam(value = "email") String email,
+                                                     @RequestParam(value = "uni") String uni,
+                                                     @RequestBody String products) {
+        userService.saveGuest(email);
+        basketService.saveBasket(products, uni);
+        User userId = userService.findByEmail(email).get(0);
+        Basket basket = basketService.GetLastBasket();
+        orderService.saveOrder(totalPrice, address, userId, basket);
+        return ResponseEntity.ok("ok");
     }
 }

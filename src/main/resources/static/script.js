@@ -298,6 +298,7 @@ if (ordersButtonClear) {
         let emptyListItem = document.createElement('li');
         emptyListItem.id = 'clear-li-text';
         emptyListItem.textContent = 'Корзина пуста';
+        sessionStorage.removeItem('products');
         list.appendChild(emptyListItem);
     });
 }

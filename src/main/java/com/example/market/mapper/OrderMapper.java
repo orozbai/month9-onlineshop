@@ -14,8 +14,8 @@ public class OrderMapper {
                 .delivery(order.getDelivery())
                 .userEmail(order.getUser().getEmail())
                 .price(order.getPrice())
-                .productName(List.of(order.getProduct().getName()))
-                .productPrice(order.getProduct().getPrice())
+                .productName(order.getBasket().getProducts())
+                .productPrice(order.getPrice())
                 .build();
     }
 }
