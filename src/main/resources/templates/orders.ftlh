@@ -145,9 +145,8 @@
                 <form id="find-user-cart">
                     <p>Есть идентификатор?</p>
                     <label>
-                        <input type="text" maxlength="10" name="identification" id="input-identify">
+                        <input type="text" maxlength="10" name="identification" id="input-identify" minlength="1">
                     </label>
-                    <p>Временно не работает</p>
                     <button id="cart-button-find" type="submit">Найти</button>
                 </form>
             </div>

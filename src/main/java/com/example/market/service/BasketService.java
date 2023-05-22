@@ -23,4 +23,8 @@ public class BasketService {
         return basketRepository.findFirstByOrderByIdDesc();
 
     }
+
+    public String findBasket(String uni) {
+        return basketRepository.findWithUni(uni);
+    }
 }

@@ -17,17 +17,19 @@ function createCartList(listJson) {
         elem.removeChild(elem.firstChild);
     }
     const dataArray = JSON.parse(listJson);
-    for (const p of dataArray) {
-        const form = new FormData();
-        form.append('name', p.name);
-        form.append('description', p.description);
-        form.append('count', p.count);
-        form.append('price', p.price);
-        form.append('brand', p.brand);
-        form.append('category', p.category);
-        form.append('image', p.image);
-        form.append('id', p.id);
-        insertCart(form);
+    if (dataArray) {
+        for (const p of dataArray) {
+            const form = new FormData();
+            form.append('name', p.name);
+            form.append('description', p.description);
+            form.append('count', p.count);
+            form.append('price', p.price);
+            form.append('brand', p.brand);
+            form.append('category', p.category);
+            form.append('image', p.image);
+            form.append('id', p.id);
+            insertCart(form);
+        }
     }
 }
 
@@ -221,6 +223,7 @@ async function sendDeliver(e) {
     if (modal.style.display === 'block') {
         modal.style.display = 'none';
     }
+    sessionStorage.removeItem('products');
 }
 
 function generateRandomString(length) {
@@ -234,4 +237,16 @@ function generateRandomString(length) {
     }
 
     return result;
+}
+
+const findButtonIdenty = document.getElementById('cart-button-find');
+if (findButtonIdenty) {
+    findButtonIdenty.addEventListener('click', async function (e) {
+        e.preventDefault()
+        const uni = document.getElementById('input-identify').value;
+        await fetch(basic + `user/cart/find?uni=${uni}`).then(response => response.json())
+            .then(data => {
+                createCartList(data);
+            });
+    })
 }

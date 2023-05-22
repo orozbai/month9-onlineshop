@@ -100,4 +100,9 @@ public class UserController {
         orderService.saveOrder(totalPrice, address, userId, basket);
         return ResponseEntity.ok("ok");
     }
+
+    @GetMapping("cart/find")
+    public String getListCart(@RequestParam(value = "uni") String uni) {
+        return basketService.findBasket(uni);
+    }
 }
