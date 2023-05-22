@@ -37,6 +37,10 @@
             <label for="repeatPassword"></label>
             <input type="password" id="repeatPassword" name="repeatPassword" required placeholder="Repeat password"
                    maxlength="25">
+            <p>CAPTCHA</p>
+            <label>
+                <input type="number" maxlength="2" minlength="1" placeholder="" id="captcha-register" name="captchaReg">
+            </label>
             <div id="passwordError" class="error"></div>
             <br>
             <a href="/login"><input type="submit" value="register"></a>
