@@ -31,7 +31,6 @@ public class UserController {
     final private OrderService orderService;
     final private OrderMapper orderMapper;
 
-    //на страрнице сделать выбираемый поиск выпадающий email, name, username
     @GetMapping("find")
     public List<UserDto> searchUsers(@RequestParam(required = false) String name,
                                      @RequestParam(required = false) String username,
@@ -92,8 +91,19 @@ public class UserController {
                                                      @RequestParam(value = "address") String address,
                                                      @RequestParam(value = "email") String email,
                                                      @RequestParam(value = "uni") String uni,
-                                                     @RequestBody String products) {
-        userService.saveGuest(email);
+                                                     @RequestBody String products,
+                                                     @AuthenticationPrincipal UserDetails userDetails) {
+        String user;
+        if (userDetails != null && userDetails.getUsername() != null && !userDetails.getUsername().isEmpty()) {
+            user = userDetails.getUsername();
+        } else {
+            user = null;
+        }
+        if (user != null) {
+            userService.saveGuest(user);
+        } else {
+            userService.saveGuest(email);
+        }
         basketService.saveBasket(products, uni);
         User userId = userService.findByEmail(email).get(0);
         Basket basket = basketService.GetLastBasket();
