@@ -206,6 +206,16 @@ async function sendDeliver(e) {
     const email = document.getElementById('modal-email').value;
     const products = sessionStorage.getItem('products');
     const number = localStorage.getItem('totalPrice');
+    const productObj = JSON.parse(products);
+    const array = [];
+    for (const p of productObj) {
+        const form = new FormData();
+        form.append('id', p.id);
+        array.push(form.get('id'));
+    }
+    const arrayString = JSON.stringify(array);
+    localStorage.setItem('productId', arrayString);
+    localStorage.setItem('review', email);
     localStorage.removeItem('totalPrice');
     const randomString = generateRandomString(10);
     const uni = document.getElementById('uni');
@@ -224,6 +234,64 @@ async function sendDeliver(e) {
         modal.style.display = 'none';
     }
     sessionStorage.removeItem('products');
+
+    const modalReviews = document.getElementById('reviews-modal');
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    if (modalReviews.style.display === 'none') {
+        modalReviews.style.display = 'block';
+    }
+    closeBtn.onclick = function () {
+        modalReviews.style.display = 'none';
+    }
+
+    window.onclick = function (event) {
+        if (event.target === modalReviews) {
+            modalReviews.style.display = 'none';
+        }
+    }
+}
+
+const review = document.getElementById('send-reviews');
+if (review) {
+    review.addEventListener('click', sendReview);
+}
+
+async function sendReview(e) {
+    e.preventDefault();
+    const text = document.getElementById('reviews-text').value;
+    if (text) {
+        const email = localStorage.getItem('review');
+        const productId = localStorage.getItem('productId');
+        const csrfToken = document.querySelector('meta[name="reviews_csrf_token"]').getAttribute('content');
+        await fetch(basic + `product/review/save?email=${email}&id=${text}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(productId)
+        });
+        localStorage.removeItem('review');
+        localStorage.removeItem('productId');
+        const modalReviews = document.getElementById('reviews-modal');
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        if (modalReviews.style.display === 'none') {
+            modalReviews.style.display = 'block';
+        } else {
+            modalReviews.style.display = 'none';
+        }
+        closeBtn.onclick = function () {
+            modalReviews.style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target === modalReviews) {
+                modalReviews.style.display = 'none';
+            }
+        }
+    }
 }
 
 function generateRandomString(length) {

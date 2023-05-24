@@ -133,7 +133,20 @@
                     </form>
                 </div>
             </div>
-
+            <div id="reviews-modal" class="modal" style="display: none">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Хотите оставить отзыв?</p>
+                    <form id="reviews-window-form">
+                        <#if _csrf??>
+                            <meta name="reviews_csrf_token" content="${_csrf.token}"/>
+                        </#if>
+                        <label for="reviews-text"></label>
+                        <input type="text" minlength="5" name="reviews" id="reviews-text">
+                        <button type="submit" id="send-reviews">Отправить</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div id="right-column">
             <div>

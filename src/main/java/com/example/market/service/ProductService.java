@@ -1,6 +1,5 @@
 package com.example.market.service;
 
-import com.example.market.dto.ProductDto;
 import com.example.market.entity.Product;
 import com.example.market.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -70,5 +69,9 @@ public class ProductService {
 
     public Optional<Product> findById(int id) {
         return productRepository.getProductById(id);
+    }
+
+    public Product findProductById(int num) {
+        return productRepository.findProductById(num);
     }
 }

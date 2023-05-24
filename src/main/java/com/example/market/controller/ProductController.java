@@ -2,15 +2,22 @@ package com.example.market.controller;
 
 import com.example.market.dto.ProductDto;
 import com.example.market.dto.ReviewDto;
+import com.example.market.entity.Product;
+import com.example.market.entity.Reviews;
+import com.example.market.entity.User;
 import com.example.market.mapper.ProductMapper;
 import com.example.market.mapper.ReviewMapper;
 import com.example.market.service.ReviewService;
 import com.example.market.service.ProductService;
+import com.example.market.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +30,7 @@ public class ProductController {
     final private ReviewService reviewService;
     final private ProductMapper productMapper;
     final private ReviewMapper reviewMapper;
+    final private UserService userService;
 
     @GetMapping("id")
     public ProductDto getProductWithId(@RequestParam(value = "id") int id) {
@@ -50,6 +58,36 @@ public class ProductController {
             return null;
         } else {
             return list;
+        }
+    }
+
+    @PostMapping("review/save")
+    public void saveReview(@RequestBody String id,
+                           @AuthenticationPrincipal UserDetails userDetails,
+                           @RequestParam(value = "email") String email,
+                           @RequestParam(value = "id") String text) {
+        String cleanedId = id.replaceAll("[^0-9]", "");
+        String[] digits = cleanedId.split("");
+        int[] numbers = new int[digits.length];
+        for (int i = 0; i < digits.length; i++) {
+            numbers[i] = Integer.parseInt(digits[i]);
+        }
+        for (int num : numbers) {
+            String user;
+            if (userDetails != null && userDetails.getUsername() != null && !userDetails.getUsername().isEmpty()) {
+                user = userDetails.getUsername();
+            } else {
+                user = null;
+            }
+            User userId;
+            if (user != null) {
+                userId = userService.findByEmail(user).get(0);
+            } else {
+                userId = userService.findByEmail(email).get(0);
+            }
+            LocalDateTime time = LocalDateTime.now();
+            Product product = productService.findProductById(num);
+            reviewService.saveReview(userId, text, product, time);
         }
     }
 

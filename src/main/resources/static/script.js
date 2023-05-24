@@ -536,7 +536,6 @@ async function addBasket(id, e) {
             }
             const updatedData = JSON.stringify(dataArray);
             sessionStorage.setItem('products', updatedData);
-            console.log('id: ' + form.get('id'));
             let getLiId = document.getElementById(form.get('id') + '-product');
             if (!getLiId) {
                 const li = document.createElement('li');
