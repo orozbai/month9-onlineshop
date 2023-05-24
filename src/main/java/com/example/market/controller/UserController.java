@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -114,5 +115,12 @@ public class UserController {
     @GetMapping("cart/find")
     public String getListCart(@RequestParam(value = "uni") String uni) {
         return basketService.findBasket(uni);
+    }
+
+    @PostMapping("change/password")
+    public void changePassword(@RequestBody String password,
+                               @RequestParam(value = "email") String email) {
+        String encodePsw = new BCryptPasswordEncoder().encode(password);
+        userService.updatePassword(encodePsw, email);
     }
 }

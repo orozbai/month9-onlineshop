@@ -45,6 +45,7 @@
                 </#if>
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
+            <a href="/forgotten"><button type="button">Забыли пароль?</button></a>
         </div>
     </div>
 </div>

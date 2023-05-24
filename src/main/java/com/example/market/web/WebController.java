@@ -36,6 +36,11 @@ public class WebController {
         return "redirect:/login";
     }
 
+    @GetMapping("forgotten")
+    public String forgottenPsw() {
+        return "forgotten";
+    }
+
     @GetMapping("/error/405")
     public String handle405Error() {
         return "shopcopy";
