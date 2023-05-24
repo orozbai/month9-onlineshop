@@ -10,4 +10,5 @@ import java.time.LocalDateTime;
 public class ReviewDto {
     private String description;
     private LocalDateTime descriptionTime;
+    private String name;
 }

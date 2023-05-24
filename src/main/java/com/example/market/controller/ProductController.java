@@ -41,11 +41,16 @@ public class ProductController {
     }
 
     @GetMapping("comment")
-    public List<ReviewDto> getCommentsByIdProduct(@RequestParam(name = "productId", required = false) Integer id) {
-        return reviewService.getReviewsById(id)
+    public List<ReviewDto> getCommentsByIdProduct(@RequestParam(name = "productId") Integer id) {
+        var list = reviewService.getReviewsById(id)
                 .stream()
                 .map(reviewMapper::fromReview)
                 .collect(Collectors.toList());
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list;
+        }
     }
 
     @GetMapping("search")

@@ -254,6 +254,21 @@ function insertProductsElem(form) {
     button.setAttribute('onclick', 'addBasket("product-' + form.get('id') + '", event)');
     divElem.appendChild(button);
 
+    const reviews = document.createElement('button');
+    reviews.textContent = 'Показать комментарии';
+    reviews.classList.add('product-reviews');
+    reviews.id = 'reviews-' + form.get('id');
+    reviews.setAttribute('onclick', 'showReviews("reviews-' + form.get('id') + '", event)');
+    divElem.appendChild(reviews);
+
+    const divComments = document.createElement('div');
+    divComments.id = 'comments-' + form.get('id');
+    divComments.style.overflow = 'auto';
+    divComments.style.marginTop = '5px';
+    divComments.style.height = '200px';
+    divComments.style.display = 'none';
+    divElem.appendChild(divComments);
+
     const div = document.createElement('div');
     div.classList.add('products-div');
     const name = document.createElement('h3');
@@ -530,4 +545,50 @@ async function addBasket(id, e) {
                 olElem.appendChild(li);
             }
         });
+}
+
+async function showReviews(id, event) {
+    event.preventDefault();
+    const digits = id.match(/\d/g);
+    const newId = digits.join('');
+    await fetch(basicUrl + `product/comment?productId=${newId}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Ошибка пустой комментарий');
+            }
+        })
+        .then(data => {
+            const div = document.getElementById('comments-' + newId);
+            if (div.style.display === 'none') {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+            createComments(data, newId);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
+function createComments(data, id) {
+    for (const c of data) {
+        const form = new FormData();
+        form.append('name', c.name);
+        form.append('description', c.description);
+        form.append('descriptionTime', c.descriptionTime);
+        insertComments(form, id);
+    }
+}
+
+function insertComments(form, id) {
+    const div = document.getElementById('comments-' + id);
+    const p = document.createElement('p');
+    p.textContent = form.get('descriptionTime') + ' name ' + form.get('name') + ': ' + form.get('description');
+    div.appendChild(p);
 }
