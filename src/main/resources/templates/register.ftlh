@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
             crossorigin="anonymous"></script>
+    <#import "/spring.ftl" as sp>
     <title>Register</title>
 </head>
 <body>
@@ -21,21 +22,21 @@
     <div class="register">
         <form id="register-post-form" enctype="multipart/form-data" method="post" action="/login">
             <label for="register-accountName"></label>
-            <input type="text" id="register-accountName" name="username" required placeholder="username" maxlength="25">
+            <input type="text" id="register-accountName" name="username" required placeholder="<@sp.message "username" />" maxlength="25">
             <br>
             <label for="register-name"></label>
-            <input type="text" id="register-name" name="name" required placeholder="name" maxlength="25">
+            <input type="text" id="register-name" name="name" required placeholder="<@sp.message "codeToEmail" />" maxlength="25">
             <br>
             <label for="register-email"></label>
-            <input type="email" id="register-email" name="email" required placeholder="Email" maxlength="25">
+            <input type="email" id="register-email" name="email" required placeholder="<@sp.message "email" />" maxlength="25">
             <div id="emailError" class="error"></div>
             <br>
             <label for="register-password"></label>
-            <input type="password" id="register-password" name="password" required placeholder="Password"
+            <input type="password" id="register-password" name="password" required placeholder="<@sp.message "password" />"
                    maxlength="25" minlength="8">
             <br>
             <label for="repeatPassword"></label>
-            <input type="password" id="repeatPassword" name="repeatPassword" required placeholder="Repeat password"
+            <input type="password" id="repeatPassword" name="repeatPassword" required placeholder="<@sp.message "repeatPassword" />"
                    maxlength="25">
             <p>CAPTCHA</p>
             <label>
@@ -45,7 +46,7 @@
             <br>
             <a href="/login"><input type="submit" value="register"></a>
             <a href="/login" class="login-button-link">
-                Уже зарегистрированы?
+                <@sp.message "alreadyRegistered" />
             </a>
             <#if _csrf??>
                 <meta name="_csrf_header" content="${_csrf.headerName}"/>
