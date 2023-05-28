@@ -591,3 +591,18 @@ function insertComments(form, id) {
     p.textContent = form.get('descriptionTime') + ' name ' + form.get('name') + ': ' + form.get('description');
     div.appendChild(p);
 }
+
+function changeLanguage(lang) {
+    let url = window.location.href;
+    if (url.indexOf('?') !== -1) {
+        if (url.indexOf('lang=') !== -1) {
+            url = url.replace(/lang=[^&]+/, lang);
+        } else {
+            url += '&' + lang;
+        }
+    } else {
+        url += '?' + lang;
+    }
+    window.history.replaceState({}, '', url);
+    window.location.reload();
+}

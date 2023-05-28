@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="../main.css">
+    <#import "/spring.ftl" as sp>
 </head>
 <body>
 <div class="container">
@@ -12,7 +13,7 @@
             <form id="list-form">
                 <label for="list1"></label>
                 <div id="dropdown1">
-                    <button id="drop-btn1" class="btn-dropdown">Процессоры</button>
+                    <button id="drop-btn1" class="btn-dropdown"><@sp.message "cpu" /></button>
                     <div id="list1">
                         <a href="#">Intel</a>
                         <a href="#">AMD</a>
@@ -21,7 +22,7 @@
                 <br>
                 <label for="list2"></label>
                 <div id="dropdown2">
-                    <button id="drop-btn2" class="btn-dropdown">Материнские платы</button>
+                    <button id="drop-btn2" class="btn-dropdown"><@sp.message "motherboard" /></button>
                     <div id="list2">
                         <a href="#">Gigabyte</a>
                         <a href="#">Asus</a>
@@ -33,7 +34,7 @@
                 <br>
                 <label for="list3"></label>
                 <div id="dropdown3">
-                    <button id="drop-btn3" class="btn-dropdown">Системы охлождения</button>
+                    <button id="drop-btn3" class="btn-dropdown"><@sp.message "cpuCooler" /></button>
                     <div id="list3">
                         <a href="#">DEEPCOOL</a>
                         <a href="#">Asus</a>
@@ -43,7 +44,7 @@
                 <br>
                 <label for="list4"></label>
                 <div id="dropdown4">
-                    <button id="drop-btn4" class="btn-dropdown">Оперативная память</button>
+                    <button id="drop-btn4" class="btn-dropdown"><@sp.message "ram" /></button>
                     <div id="list4">
                         <a href="#">Kingston</a>
                         <a href="#">Gigabyte</a>
@@ -54,7 +55,7 @@
                 <br>
                 <label for="list5"></label>
                 <div id="dropdown5">
-                    <button id="drop-btn5" class="btn-dropdown">Видеокарты</button>
+                    <button id="drop-btn5" class="btn-dropdown"><@sp.message "videoCard" /></button>
                     <div id="list5">
                         <a href="#">Asus</a>
                         <a href="#">Gigabyte</a>
@@ -65,7 +66,7 @@
                 <br>
                 <label for="list6"></label>
                 <div id="dropdown6">
-                    <button id="drop-btn6" class="btn-dropdown">Жесткие диски</button>
+                    <button id="drop-btn6" class="btn-dropdown"><@sp.message "hdd" /></button>
                     <div id="list6">
                         <a href="#">Toshiba</a>
                         <a href="#">WD</a>
@@ -76,7 +77,7 @@
                 <br>
                 <label for="list7"></label>
                 <div id="dropdown7">
-                    <button id="drop-btn7" class="btn-dropdown">Блоки питания</button>
+                    <button id="drop-btn7" class="btn-dropdown"><@sp.message "powerUnit" /></button>
                     <div id="list7">
                         <a href="#">Vinga</a>
                         <a href="#">AeroCool</a>
@@ -87,7 +88,7 @@
                 <br>
                 <label for="list8"></label>
                 <div id="dropdown8">
-                    <button id="drop-btn8" class="btn-dropdown">Корпус</button>
+                    <button id="drop-btn8" class="btn-dropdown"><@sp.message "frame" /></button>
                     <div id="list8">
                         <a href="#">Zalman</a>
                         <a href="#">Corsair</a>
@@ -99,41 +100,41 @@
         </div>
         <div id="content">
             <div class="switch-start-brand" style="display: none">
-                <button id="prev" type="button" style="display: flex">Предыдущая страница</button>
-                <button id="next" type="button" style="display: flex">Следующая страница</button>
+                <button id="prev" type="button" style="display: flex"><@sp.message "prevPage" /></button>
+                <button id="next" type="button" style="display: flex"><@sp.message "nextPage" /></button>
             </div>
             <div class="card-col">
                 <div class="cards">
                     <img src="../images/video-card.jpg" alt="image" class="card-image">
-                    <p class="card-name">Видеокарты</p>
+                    <p class="card-name"><@sp.message "videoCard"/></p>
                 </div>
                 <div class="cards">
                     <img src="../images/cpu.jpg" alt="image" class="card-image">
-                    <p class="card-name">Процессоры</p>
+                    <p class="card-name"><@sp.message "cpu" /></p>
                 </div>
                 <div class="cards">
                     <img src="../images/cpu-cooler.jpg" alt="image" class="card-image">
-                    <p class="card-name">Системы охлаждения</p>
+                    <p class="card-name"><@sp.message "cpuCooler" /></p>
                 </div>
                 <div class="cards">
                     <img src="../images/motherboard.jpg" alt="image" class="card-image">
-                    <p class="card-name">Материнская плата</p>
+                    <p class="card-name"><@sp.message "motherboard" /></p>
                 </div>
                 <div class="cards">
                     <img src="../images/hdd.jpg" alt="image" class="card-image">
-                    <p class="card-name">Жесткие диски</p>
+                    <p class="card-name"><@sp.message "hdd" /></p>
                 </div>
                 <div class="cards">
                     <img src="../images/frame.jpg" alt="image" class="card-image">
-                    <p class="card-name">Корпус</p>
+                    <p class="card-name"><@sp.message "frame" /></p>
                 </div>
                 <div class="cards">
                     <img src="../images/ram.jpg" alt="image" class="card-image">
-                    <p class="card-name">Оперативная память</p>
+                    <p class="card-name"><@sp.message "ram" /></p>
                 </div>
                 <div class="cards">
                     <img src="../images/power-unit.jpg" alt="image" class="card-image">
-                    <p class="card-name">Блоки питания</p>
+                    <p class="card-name"><@sp.message "powerUnit" /></p>
                 </div>
             </div>
             <div id="content-products">
@@ -141,63 +142,68 @@
             </div>
         </div>
         <div id="right-column">
+            <div id="change-language">
+                <button onclick="changeLanguage('lang=en')">English</button>
+                <button onclick="changeLanguage('lang=ru')">Russian</button>
+            </div>
             <div>
                 <p id="link-profile-name" style="display: block"></p>
                 <a href="/login" style="display: block" id="link-login">
-                    <button class="link-button" type="button">Login</button>
+                    <button class="link-button" type="button"><@sp.message "login" /></button>
                 </a>
                 <a href="/logout" style="display: block" id="logout-link">
-                    <button class="link-button" type="button" id="logout-button">Выйти</button>
+                    <button class="link-button" type="button" id="logout-button"><@sp.message "logout" /></button>
                 </a>
                 <a href="/register">
-                    <button type="button" class="link-button">Зарегестрироваться</button>
+                    <button type="button" class="link-button"><@sp.message "register" /></button>
                 </a>
             </div>
             <div class="search-right-col">
                 <form id="search-form">
                     <label>
-                        <input name="s" placeholder="Поиск" type="search" id="search-input">
+                        <input name="s" placeholder="<@sp.message "search" />" type="search" id="search-input">
                         <input name="h" value="0" hidden id="search-input-hidden">
                         <#if _csrf??>
                             <meta name="_csrf_header" content="${_csrf.headerName}"/>
                             <meta name="_csrf_token" content="${_csrf.token}"/>
                         </#if>
                     </label>
-                    <button type="submit" id="search-button">Поиск</button>
+                    <button type="submit" id="search-button"><@sp.message "search" /></button>
                 </form>
             </div>
             <div class="dropdown">
-                <button class="dropbtn">Расширенный поиск</button>
+                <button class="dropbtn"><@sp.message "advancedSearch" /></button>
                 <div class="dropdown-content">
                     <form id="search-form-hidden">
                         <label>
-                            <input name="s" placeholder="Поиск по бренду" type="search" id="search-input-hidden">
+                            <input name="s" placeholder="<@sp.message "searchByBrand" />" type="search"
+                                   id="search-input-hidden">
                             <input name="h" value="0" hidden id="hidden-search-input">
-                            <p>Поиск по описанию</p>
-                            <input name="d" placeholder="Поиск по описанию" type="search" id="search-input-description">
-                            <p>Диапазон цен</p>
-                            <input name="min" placeholder="Минимальная цена" type="search" id="min-search-input">
-                            <input name="max" placeholder="Максимальная цена" type="search" id="max-search-input">
+                            <p><@sp.message "searchByDescription" /></p>
+                            <input name="d" placeholder="<@sp.message "searchByDescription" />" type="search" id="search-input-description">
+                            <p><@sp.message "priceBetween" /></p>
+                            <input name="min" placeholder="<@sp.message "minimumPrice" />" type="search" id="min-search-input">
+                            <input name="max" placeholder="<@sp.message "maximumPrice" />" type="search" id="max-search-input">
                         </label>
                         <#if _csrf??>
                             <meta name="_csrf_header" content="${_csrf.headerName}"/>
                             <meta name="csrf-token" content="${_csrf.token}"/>
                         </#if>
-                        <button type="submit" id="search-button-brand">Поиск</button>
+                        <button type="submit" id="search-button-brand"><@sp.message "search" /></button>
                     </form>
                 </div>
             </div>
             <div class="orders">
-                <h3 id="orders-title">Ваша корзина</h3>
+                <h3 id="orders-title"><@sp.message "yourBasket" /></h3>
                 <div id="orders-list">
                     <ol id="orders-ol">
-                        <li id="clear-li-text">Корзина пуста</li>
+                        <li id="clear-li-text"><@sp.message "emptyBasket" /></li>
                     </ol>
                 </div>
                 <a href="http://localhost:8089/orders">
-                    <button type="button" id="orders-button">Перейти в корзину</button>
+                    <button type="button" id="orders-button"><@sp.message "goToBasket" /></button>
                 </a>
-                <button type="button" id="orders-button-clear">Очистить корзину</button>
+                <button type="button" id="orders-button-clear"><@sp.message "clearBasket" /></button>
             </div>
         </div>
     </div>

@@ -13,39 +13,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
             crossorigin="anonymous"></script>
+    <#import "/spring.ftl" as sp>
     <title>Login</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="login-form"  method="post">
+            <form id="login-form" method="post">
                 <div class="mb-3">
                     <#if error>
                         <div class="alert alert-danger" role="alert">
-                            Email или Password не правильный!
+                            <@sp.message "errorEmailAndPassword" />
                         </div>
                     </#if>
                     <#if logout>
                         <div class="alert alert-success" role="alert">
-                            Вы успешно вышли!
+                        <@sp.message "logoutSuccessfully" />
                         </div></#if>
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <label for="exampleInputEmail1" class="form-label"><@sp.message "emailAddress" /></label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                            name="username">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <div id="emailHelp" class="form-text"><@sp.message "neverShareEmail" /></div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <label for="exampleInputPassword1" class="form-label"><@sp.message "password" /></label>
                     <input type="password" class="form-control" id="exampleInputPassword1" name="password"
                            minlength="8">
                 </div>
                 <#if _csrf??>
                     <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
                 </#if>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary"><@sp.message "login" /></button>
             </form>
-            <a href="/forgotten"><button type="button">Забыли пароль?</button></a>
+            <a href="/forgotten">
+                <button type="button"><@sp.message "forgotPassword" /></button>
+            </a>
         </div>
     </div>
 </div>
